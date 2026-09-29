@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>管理端 · 消防安全演练考试台</title>
+<link rel="stylesheet" href="https://unpkg.com/element-plus@2.7.6/dist/index.css">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:"PingFang SC","Microsoft YaHei",sans-serif; background:#f4f5f7; color:#1f2937; }
+  .topbar { background:linear-gradient(90deg,#7f1d1d,#b91c1c); color:#fff; padding:0 26px; height:58px;
+    display:flex; align-items:center; justify-content:space-between; position:sticky; top:0; z-index:50; }
+  .topbar .brand { font-size:17px; font-weight:700; }
+  .topbar .who { font-size:13.5px; display:flex; align-items:center; gap:12px; }
+  .shell { display:flex; min-height:calc(100vh - 58px); }
+  .side { width:196px; background:#fff; border-right:1px solid #eee; padding:14px 10px; }
+  .side .nav { padding:12px 16px; border-radius:9px; cursor:pointer; font-size:14.5px; color:#4b5563; margin-bottom:4px; display:flex; gap:10px; align-items:center; }
+  .side .nav:hover { background:#fef2f2; }
+  .side .nav.active { background:#b91c1c; color:#fff; font-weight:600; }
+  .main { flex:1; padding:22px 26px 60px; min-width:0; }
+  .card { background:#fff; border-radius:12px; padding:20px 22px; margin-bottom:18px; box-shadow:0 1px 6px rgba(0,0,0,.05); }
+  .card h3 { font-size:16px; margin-bottom:16px; }
+  .kpi { display:grid; grid-template-columns:repeat(6,1fr); gap:14px; margin-bottom:18px; }
+  .kpi .k { background:#fff; border-radius:12px; padding:16px 18px; box-shadow:0 1px 6px rgba(0,0,0,.05); border-top:3px solid #b91c1c; }
+  .kpi .k .lab { font-size:12.5px; color:#6b7280; }
+  .kpi .k .num { font-size:28px; font-weight:800; margin-top:4px; }
+  .filters { display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin-bottom:16px; }
+  .chart { width:100%; height:300px; }
+  table small { color:#9ca3af; }
+  .login-box { max-width:420px; margin:80px auto; background:#fff; border-radius:16px; padding:40px 36px; box-shadow:0 12px 40px rgba(0,0,0,.1); }
+  .login-box h2 { text-align:center; margin-bottom:6px; color:#991b1b; }
+  .login-box .sub { text-align:center; color:#9ca3af; font-size:13px; margin-bottom:26px; }
+  .checkin-box { display:grid; grid-template-columns:420px 1fr; gap:18px; }
+  .scan { background:linear-gradient(135deg,#991b1b,#b91c1c); color:#fff; border-radius:14px; padding:26px; }
+  .scan h3 { color:#fff; }
+  .recent-item { display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px dashed #fde68a; font-size:14px; }
+</style>
+</head>
+<body>
+<div id="app"></div>
+
+<script src="https://unpkg.com/vue@3.4.31/dist/vue.global.prod.js"></script>
+<script src="https://unpkg.com/element-plus@2.7.6/dist/index.full.min.js"></script>
+<script src="https://unpkg.com/echarts@5.5.0/dist/echarts.min.js"></script>
+<script src="js/api.js"></script>
+<script>
+const { createApp, ref, reactive, computed, onMounted, nextTick, watch } = Vue;
+const { ElMessage, ElMessageBox } = ElementPlus;
+
+const App = {
+  setup() {
+    const view = ref('login');
+    const admin = ref(null);
+    const tab = ref('overview');
+    const sessions = ref([]);
+    const meta = ref({ floors: [], departments: [], positions: [] });
+    const overview = ref(null);
+
+    const f = reactive({ sessionId: '', floor: '', deptId: '', position: '', keyword: '' });
+    const stats = ref(null);
+    const chartRefs = { floor: null, dept: null, pos: null, funnel: null };
+    const charts = {};
+
+    const retrain = ref([]);
+    const rtFilter = reactive({ sessionId: '', status: 'pending', floor: '', deptId: '' });
+    const exams = ref([]);
+    const checkin = reactive({ sessionId: '', keyword: '', list: [], recent: [] });
+
+    const loginForm = reactive({ username: 'admin', password: 'admin123' });
+
+    onMounted(async () => {
+      meta.value = await api.get('/api/meta');
+      sessions.value = await api.get('/api/sessions');
+      if (api.token()) {
+        try {
+          // 已有 token：直接校验并进入后台
+          const ov = await api.get('/api/admin/overview');
+          overview.value = ov;
+          await enterAdmin();
+        } catch { api.setToken(''); }
+      }
+    });
+
+    async function login() {
+      try {
+        const r = await api.post('/api/auth/login', { role: 'admin', username: loginForm.username.trim(), password: loginForm.password });
+        api.setToken(r.token);
+        admin.value = { name: r.name, username: r.username, guard: r.guard };
+        await enterAdmin();
+        ElMessage.success('欢迎，' + r.name);
+      } catch (e) { ElMessage.error(e.message); }
+    }
+
+    async function enterAdmin() {
+      view.value = 'app';
+      if (admin.value?.guard) tab.value = 'checkin';
+      f.sessionId = sessions.value[0]?.id || '';
+      checkin.sessionId = sessions.value.find(s => s.status === 'ongoing')?.id || f.sessionId;
+      await loadOverview();
+      await loadStats();
+      await loadRetrain();
+      await loadExams();
+      await loadCheckinList();
+    }
+
+    async function loadOverview() { overview.value = await api.get('/api/admin/overview'); }
+
+    async function loadStats() {
+      if (!f.sessionId) return;
+      const q = new URLSearchParams({ sessionId: f.sessionId });
+      if (f.floor) q.set('floor', f.floor);
+      if (f.deptId) q.set('deptId', f.deptId);
+      if (f.position) q.set('position', f.position);
+      if (f.keyword) q.set('keyword', f.keyword);
+      stats.value = await api.get('/api/admin/stats?' + q.toString());
+      await nextTick(); renderCharts();
+    }
+
+    function barOption(title, data, labelMap) {
+      return {
+        title: { text: title, left: 'center', textStyle: { fontSize: 14 } },
+        tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
+        grid: { left: 50, right: 30, top: 46, bottom: 30 },
+        xAxis: { type: 'category', data: data.map(d => labelMap ? (labelMap[d.key] || d.key) : d.key + '层'), axisLabel: { interval: 0 } },
+        yAxis: { type: 'value', max: 100, name: '合格率%' },
+        series: [{
+          type: 'bar', barMaxWidth: 46, data: data.map(d => ({
+            value: d.rate,
+            itemStyle: { color: d.rate >= 80 ? '#16a34a' : d.rate >= 50 ? '#d97706' : '#dc2626', borderRadius: [5,5,0,0] }
+          })),
+          label: { show: true, position: 'top', formatter: '{c}%' }
+        }]
+      };
+    }
+    function renderCharts() {
+      if (!stats.value) return;
+      const s = stats.value;
+      const mk = (key) => {
+        if (!chartRefs[key]) return;
+        if (!charts[key]) charts[key] = echarts.init(chartRefs[key]);
+        charts[key].resize();
+        return charts[key];
+      };
+      mk('floor')?.setOption(barOption('按楼层合格率', s.byFloor), true);
+      mk('dept')?.setOption(barOption('按部门合格率', s.byDept, Object.fromEntries(s.byDept.map(d => [d.key, d.label]))), true);
+      const cP = mk('pos');
+      cP?.setOption({
+        title: { text: '按岗位合格率', left: 'center', textStyle: { fontSize: 14 } },
+        tooltip: { trigger: 'item', formatter: '{b}<br/>合格率：{c}%' },
+        legend: { bottom: 0, type: 'scroll' },
+        series: [{ type: 'pie', radius: ['42%', '68%'], center: ['50%', '48%'],
+          data: s.byPosition.map(d => ({ name: d.key, value: d.rate })),
+          label: { formatter: '{b}\n{c}%' },
+          color: ['#b91c1c','#d97706','#0f766e','#1d4ed8','#7c3aed'] }]
+      }, true);
+      const cF = mk('funnel');
+      const u = s.summary;
+      cF?.setOption({
+        title: { text: '完成漏斗（当前筛选范围）', left: 'center', textStyle: { fontSize: 14 } },
+        tooltip: { trigger: 'item' },
+        series: [{ type: 'funnel', left: '12%', width: '76%', top: 44, bottom: 10, minSize: '20%',
+          label: { formatter: '{b}: {c}人' },
+          data: [
+            { value: u.total, name: '应参加' },
+            { value: u.learningDone, name: '完成学习' },
+            { value: u.examTaken, name: '已测验' },
+            { value: u.examPassed, name: '测验通过' },
+            { value: u.attended, name: '现场签到' },
+            { value: u.qualified, name: '最终合格' }
+          ],
+          color: ['#7f1d1d','#b91c1c','#d97706','#ca8a04','#0f766e','#16a34a'] }]
+      }, true);
+    }
+    window.addEventListener('resize', () => Object.values(charts).forEach(c => c && c.resize()));
+
+    async function loadRetrain() {
+      const q = new URLSearchParams();
+      if (rtFilter.status) q.set('status', rtFilter.status);
+      if (rtFilter.sessionId) q.set('sessionId', rtFilter.sessionId);
+      if (rtFilter.floor) q.set('floor', rtFilter.floor);
+      if (rtFilter.deptId) q.set('deptId', rtFilter.deptId);
+      retrain.value = await api.get('/api/admin/retrain?' + q.toString());
+    }
+    async function closeRetrain(r) {
+      try {
+        const { value } = await ElMessageBox.prompt('确认该员工已完成补训/补考/补签到，解除复训状态？', '闭环处理', {
+          confirmButtonText: '确认解除', inputPlaceholder: '备注（可选）', inputValue: ''
+        });
+        await api.post('/api/admin/retrain/close', { id: r.id, resolveType: value ? 'manual_note' : 'manual' });
+        ElMessage.success('已移出待复训名单'); loadRetrain(); loadStats();
+      } catch (e) { if (e !== 'cancel') ElMessage.error(e.message || '操作取消'); }
+    }
+    async function syncRetrain() {
+      try {
+        await ElMessageBox.confirm('系统将根据该批次最新考试与签到记录重新结算：测验未通过、演练缺训人员自动进入复训名单。', '演练后结算', { type: 'warning' });
+        const r = await api.post('/api/admin/session/sync-retrain', { sessionId: f.sessionId });
+        ElMessage.success('结算完成，涉及复训记录 ' + r.retrainRecordIds.length + ' 条');
+        loadRetrain(); loadStats(); loadOverview();
+      } catch (e) { if (e !== 'cancel') ElMessage.error(e.message || '操作取消'); }
+    }
+
+    async function doCheckin() {
+      if (!checkin.sessionId) return ElMessage.warning('请先选择演练批次');
+      if (!checkin.keyword.trim()) return ElMessage.warning('请输入工号或姓名');
+      try {
+        const r = await api.post('/api/admin/checkin', { sessionId: checkin.sessionId, keyword: checkin.keyword.trim() });
+        if (r.duplicated) ElMessage.warning(r.emp.name + ' 已签到过，无需重复签到');
+        else ElMessage.success('签到成功：' + r.emp.name + '（' + r.emp.empNo + '）');
+        checkin.keyword = '';
+        loadCheckinList(); loadStats(); loadOverview();
+        document.getElementById('ck-input')?.focus();
+      } catch (e) { ElMessage.error(e.message); }
+    }
+    async function loadCheckinList() {
+      if (!checkin.sessionId) return;
+      checkin.list = await api.get('/api/admin/checkin/list?sessionId=' + checkin.sessionId);
+    }
+    async function undoCk(row) {
+      try { await ElMessageBox.confirm('撤销 ' + row.emp.name + ' 的签到记录？（将按缺训处理并进入复训名单）', '纠错', { type: 'warning' }); }
+      catch { return; }
+      await api.post('/api/admin/checkin/undo', { sessionId: checkin.sessionId, empId: row.empId });
+      ElMessage.success('已撤销'); loadCheckinList(); loadStats();
+    }
+
+    async function loadExams() {
+      exams.value = await api.get('/api/admin/exams' + (f.sessionId ? '?sessionId=' + f.sessionId : ''));
+    }
+    watch(() => f.sessionId, async () => { await Promise.all([loadStats(), loadExams()]); });
+    watch(checkin, () => {}, { deep: false });
+
+    async function logout() { await api.post('/api/auth/logout').catch(()=>{}); api.setToken(''); location.reload(); }
+    async function resetDemo() {
+      try { await ElMessageBox.confirm('将清空所有运行期改动并恢复演示数据，确认？', '重置演示数据', { type: 'warning' }); }
+      catch { return; }
+      await api.post('/api/admin/reset-demo');
+      ElMessage.success('已重置，刷新中…'); setTimeout(() => location.reload(), 800);
+    }
+    function exportCsv() {
+      if (!stats.value) return;
+      const rows = [['工号','姓名','部门','岗位','职务','楼层','学习完成','考试次数','最新成绩','是否通过','现场签到','综合合格','复训名单','未达标原因']];
+      for (const i of stats.value.items) {
+        rows.push([i.empNo, i.name, i.deptName, i.position, i.jobTitle, i.floor + '层',
+          i.learningDone ? '是' : '否', i.examAttempts, i.examScore ?? '-', i.examPassed ? '通过' : (i.examTaken ? '未过' : '未考'),
+          i.attended ? '已签到' : '缺训/未签', i.qualified ? '合格' : '未达标', i.retrainPending ? '待复训' : '-',
+          i.reasons.map(r => REASON_TEXT[r] || r).join('/')]);
+      }
+      const csv = '﻿' + rows.map(r => r.map(x => '"' + String(x).replace(/"/g, '""') + '"').join(',')).join('\n');
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv' }));
+      a.download = '消防演练完成情况_' + f.sessionId + '.csv'; a.click();
+    }
+
+    function setRef(key) { return el => { chartRefs[key] = el; if (el) renderCharts(); }; }
+
+    return { view, admin, tab, sessions, meta, f, stats, login, logout, enterAdmin,
+      loadStats, setRef, overview, retrain, rtFilter, loadRetrain, closeRetrain, syncRetrain,
+      checkin, doCheckin, loadCheckinList, undoCk, exams, loadExams, exportCsv, resetDemo,
+      loginForm, reasonText: r => REASON_TEXT[r] || r,
+      sessName: id => (sessions.value.find(s => s.id === id) || {}).name || id };
+  },
+  template: `
+  <div v-if="view==='login'" class="login-box">
+    <h2>📊 消防安全演练考试台</h2>
+    <div class="sub">管理端 / 签到台登录</div>
+    <el-form label-position="top">
+      <el-form-item label="账号"><el-input v-model="loginForm.username" size="large" placeholder="admin / guard"></el-input></el-form-item>
+      <el-form-item label="密码"><el-input v-model="loginForm.password" type="password" show-password size="large" @keyup.enter="login"></el-input></el-form-item>
+      <el-button type="danger" size="large" style="width:100%" @click="login">登 录</el-button>
+    </el-form>
+    <div style="text-align:center;margin-top:16px;font-size:12.5px;color:#9ca3af">
+      管理员 admin/admin123（全部功能）<br>签到员 guard/guard123（签到台）<br>
+      <el-link href="index.html" type="info" style="margin-top:8px">← 返回门户</el-link>
+    </div>
+  </div>
+
+  <template v-else>
+  <div class="topbar">
+    <div class="brand">📊 消防安全演练考试台 · 管理端</div>
+    <div class="who">
+      <el-tag v-if="admin?.guard" type="warning" effect="dark" size="small">签到员模式</el-tag>
+      <el-button v-if="!admin?.guard" size="small" round @click="resetDemo">重置演示数据</el-button>
+      <el-button size="small" round @click="logout">退出</el-button>
+    </div>
+  </div>
+  <div class="shell">
+    <div class="side">
+      <div class="nav" :class="{active:tab==='overview'}" @click="tab='overview'">🏭 演练总览</div>
+      <div class="nav" :class="{active:tab==='stats'}" @click="tab='stats'">✅ 完成情况</div>
+      <div class="nav" :class="{active:tab==='checkin'}" @click="tab='checkin'">🖊️ 线下签到台</div>
+      <div class="nav" :class="{active:tab==='retrain'}" @click="tab='retrain'">🔁 复训名单</div>
+      <div class="nav" :class="{active:tab==='exams'}" @click="tab='exams'">📝 考试记录</div>
+    </div>
+
+    <div class="main">
+      <!-- 总览 -->
+      <div v-if="tab==='overview'">
+        <div class="card"><h3>各演练批次完成总览</h3>
+          <el-table :data="overview?.sessions||[]" stripe>
+            <el-table-column label="批次" min-width="240">
+              <template #default="{row}">
+                <b>{{row.name}}</b><br><small>演练日 {{row.drillDate}} · {{row.floors.join('/')}}层</small>
+              </template>
+            </el-table-column>
+            <el-table-column label="状态" width="100">
+              <template #default="{row}">
+                <el-tag :type="row.status==='closed'?'info':row.status==='ongoing'?'danger':'warning'" size="small">
+                  {{row.status==='closed'?'已结束':row.status==='ongoing'?'进行中':'待开始'}}
+                </el-tag>
+              </template>
+            </el-table-column>
+            <el-table-column label="应参加" prop="summary.total" width="80" align="center"/>
+            <el-table-column label="完成学习" prop="summary.learningDone" width="90" align="center"/>
+            <el-table-column label="测验通过" prop="summary.examPassed" width="90" align="center"/>
+            <el-table-column label="已签到" prop="summary.attended" width="80" align="center"/>
+            <el-table-column label="合格" width="80" align="center">
+              <template #default="{row}"><b style="color:#15803d">{{row.summary.qualified}}</b></template>
+            </el-table-column>
+            <el-table-column label="合格率" width="100" align="center">
+              <template #default="{row}">
+                <el-progress :percentage="row.summary.rate" :stroke-width="10"
+                  :color="row.summary.rate>=80?'#16a34a':row.summary.rate>=50?'#d97706':'#dc2626'"/>
+              </template>
+            </el-table-column>
+            <el-table-column label="待复训" width="90" align="center">
+              <template #default="{row}"><el-tag v-if="row.summary.retrain" type="danger" size="small">{{row.summary.retrain}}人</el-tag><span v-else>-</span></template>
+            </el-table-column>
+            <el-table-column label="操作" width="120" align="center">
+              <template #default="{row}">
+                <el-button link type="primary" @click="tab='stats';f.sessionId=row.id;loadStats()">查看详情</el-button>
+              </template>
+            </el-table-column>
+          </el-table>
+        </div>
+        <div class="card" style="color:#6b7280;font-size:13.5px;line-height:2">
+          <b style="color:#374151">闭环规则</b>：完成三门课程学习 → 线上测验达到合格线（80分）→ 演练当日现场签到，三项全部满足判定为「合格」；
+          测验交卷未达线、演练后缺签到者由系统<span style="color:#b91c1c">自动纳入复训名单</span>，补考通过/补训补签后自动解除，可在「复训名单」中查看与闭环。
+        </div>
+      </div>
+
+      <!-- 完成情况 -->
+      <div v-if="tab==='stats'">
+        <div class="card">
+          <div class="filters">
+            <span style="font-weight:600">演练批次</span>
+            <el-select v-model="f.sessionId" style="width:260px">
+              <el-option v-for="s in sessions" :key="s.id" :label="s.name" :value="s.id"/>
+            </el-select>
+            <el-divider direction="vertical"/>
+            <span>楼层</span>
+            <el-select v-model="f.floor" clearable placeholder="全部楼层" style="width:120px" @change="loadStats">
+              <el-option v-for="fl in meta.floors" :key="fl" :label="fl+'层'" :value="String(fl)"/>
+            </el-select>
+            <span>部门</span>
+            <el-select v-model="f.deptId" clearable placeholder="全部部门" style="width:150px" @change="loadStats">
+              <el-option v-for="d in meta.departments" :key="d.id" :label="d.name" :value="d.id"/>
+            </el-select>
+            <span>岗位</span>
+            <el-select v-model="f.position" clearable placeholder="全部岗位" style="width:140px" @change="loadStats">
+              <el-option v-for="p in meta.positions" :key="p" :label="p" :value="p"/>
+            </el-select>
+            <el-input v-model="f.keyword" clearable placeholder="姓名/工号" style="width:150px" @keyup.enter="loadStats" @clear="loadStats"/>
+            <el-button type="danger" @click="loadStats">查询</el-button>
+            <el-button @click="f.floor='';f.deptId='';f.position='';f.keyword='';loadStats()">重置</el-button>
+            <el-button type="success" plain @click="exportCsv">导出CSV</el-button>
+            <el-button v-if="!admin?.guard" type="warning" plain @click="syncRetrain">演练后结算/同步复训</el-button>
+          </div>
+
+          <div class="kpi" v-if="stats">
+            <div class="k"><div class="lab">应参加</div><div class="num">{{stats.summary.total}}</div></div>
+            <div class="k" style="border-top-color:#0f766e"><div class="lab">完成学习</div><div class="num" style="color:#0f766e">{{stats.summary.learningDone}}</div></div>
+            <div class="k" style="border-top-color:#1d4ed8"><div class="lab">测验通过</div><div class="num" style="color:#1d4ed8">{{stats.summary.examPassed}}</div></div>
+            <div class="k" style="border-top-color:#7c3aed"><div class="lab">现场签到</div><div class="num" style="color:#7c3aed">{{stats.summary.attended}}</div></div>
+            <div class="k" style="border-top-color:#16a34a"><div class="lab">最终合格</div><div class="num" style="color:#16a34a">{{stats.summary.qualified}}</div></div>
+            <div class="k" style="border-top-color:#dc2626"><div class="lab">待复训</div><div class="num" style="color:#dc2626">{{stats.summary.retrain}}</div></div>
+          </div>
+
+          <el-row :gutter="16">
+            <el-col :span="12"><div class="card" style="margin:0 0 16px"><div :ref="setRef('floor')" class="chart"></div></div></el-col>
+            <el-col :span="12"><div class="card" style="margin:0 0 16px"><div :ref="setRef('dept')" class="chart"></div></div></el-col>
+            <el-col :span="12"><div class="card" style="margin:0"><div :ref="setRef('pos')" class="chart"></div></div></el-col>
+            <el-col :span="12"><div class="card" style="margin:0"><div :ref="setRef('funnel')" class="chart"></div></div></el-col>
+          </el-row>
+        </div>
+
+        <div class="card">
+          <h3>人员明细（{{stats?.items.length||0}}人）</h3>
+          <el-table :data="stats?.items||[]" stripe height="520" :row-class-name="r => r.row.qualified?'':'row-bad'">
+            <el-table-column label="工号" prop="empNo" width="80"/>
+            <el-table-column label="姓名" prop="name" width="80"/>
+            <el-table-column label="部门" prop="deptName" width="110"/>
+            <el-table-column label="岗位" prop="position" width="100"/>
+            <el-table-column label="楼层" width="70" align="center">
+              <template #default="{row}">{{row.floor}}层</template>
+            </el-table-column>
+            <el-table-column label="学习" width="80" align="center">
+              <template #default="{row}"><el-tag :type="row.learningDone?'success':'warning'" size="small">{{row.learningCount}}/3</el-tag></template>
+            </el-table-column>
+            <el-table-column label="测验" width="110" align="center">
+              <template #default="{row}">
+                <span v-if="!row.examTaken" style="color:#9ca3af">未考</span>
+                <b v-else :style="{color:row.examPassed?'#15803d':'#b91c1c'}">{{row.examScore}}分</b>
+                <small v-if="row.examAttempts>1"> ({{row.examAttempts}}次)</small>
+              </template>
+            </el-table-column>
+            <el-table-column label="签到" width="90" align="center">
+              <template #default="{row}">
+                <el-tag v-if="row.attended" type="success" size="small">已签</el-tag>
+                <el-tag v-else type="danger" size="small">{{row.absent?'缺训':'未签'}}</el-tag>
+              </template>
+            </el-table-column>
+            <el-table-column label="综合" width="90" align="center">
+              <template #default="{row}"><el-tag :type="row.qualified?'success':'danger'" size="small">{{row.qualified?'合格':'未达标'}}</el-tag></template>
+            </el-table-column>
+            <el-table-column label="未达标原因" min-width="180">
+              <template #default="{row}">
+                <el-tag v-for="r in row.reasons" :key="r" type="danger" size="small" effect="plain" style="margin:2px">{{reasonText(r)}}</el-tag>
+                <span v-if="!row.reasons.length && row.qualified" style="color:#16a34a">— 全部完成 —</span>
+              </template>
+            </el-table-column>
+          </el-table>
+        </div>
+      </div>
+
+      <!-- 签到台 -->
+      <div v-if="tab==='checkin'">
+        <div class="card">
+          <div class="filters">
+            <span style="font-weight:600">演练批次</span>
+            <el-select v-model="checkin.sessionId" style="width:300px" @change="loadCheckinList">
+              <el-option v-for="s in sessions" :key="s.id"
+                :label="s.name+'（'+s.drillDate+'）'" :value="s.id"/>
+            </el-select>
+          </div>
+          <div class="checkin-box">
+            <div class="scan">
+              <h3>🖊️ 现场签到</h3>
+              <p style="opacity:.85;font-size:13px;line-height:1.8;margin:10px 0 18px">演练当日于签到台核验：输入员工工号（如 E001）或姓名后回车签到。重复签到会被拦截；补签后若考试已通过将自动解除复训。</p>
+              <el-input id="ck-input" v-model="checkin.keyword" size="large" placeholder="输入工号 / 姓名，回车签到"
+                @keyup.enter="doCheckin" autofocus>
+                <template #append><el-button style="background:#fff" @click="doCheckin">签到</el-button></template>
+              </el-input>
+              <div style="margin-top:16px;font-size:13px;opacity:.9">
+                已签到 <b style="font-size:18px">{{checkin.list.filter(a=>a.status==='present').length}}</b> 人次
+              </div>
+            </div>
+            <div class="card" style="margin:0">
+              <h3>签到流水</h3>
+              <el-table :data="checkin.list" height="420" stripe>
+                <el-table-column label="时间" width="180">
+                  <template #default="{row}">{{ row.checkedInAt ? new Date(row.checkedInAt).toLocaleString('zh-CN') : '-' }}</template>
+                </el-table-column>
+                <el-table-column label="工号" width="90">
+                  <template #default="{row}">{{row.emp?.empNo}}</template>
+                </el-table-column>
+                <el-table-column label="姓名" width="90">
+                  <template #default="{row}">{{row.emp?.name}}</template>
+                </el-table-column>
+                <el-table-column label="部门" min-width="120">
+                  <template #default="{row}">{{row.emp?.deptName}} · {{row.emp?.floor}}层</template>
+                </el-table-column>
+                <el-table-column label="状态" width="100">
+                  <template #default="{row}">
+                    <el-tag v-if="row.status==='present'" type="success" size="small">已签到</el-tag>
+                    <el-tag v-else type="info" size="small">缺席/已撤销</el-tag>
+                  </template>
+                </el-table-column>
+                <el-table-column label="备注" width="90">
+                  <template #default="{row}"><el-tag v-if="row.makeup" type="warning" size="small">补签</el-tag></template>
+                </el-table-column>
+                <el-table-column label="操作" width="90">
+                  <template #default="{row}">
+                    <el-button v-if="row.status==='present' && !admin?.guard" link type="danger" @click="undoCk(row)">撤销</el-button>
+                  </template>
+                </el-table-column>
+              </el-table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 复训名单 -->
+      <div v-if="tab==='retrain'">
+        <div class="card">
+          <div class="filters">
+            <span style="font-weight:600">复训名单</span>
+            <el-select v-model="rtFilter.status" style="width:130px" @change="loadRetrain">
+              <el-option label="待复训" value="pending"/>
+              <el-option label="已闭环" value="resolved"/>
+              <el-option label="全部" value=""/>
+            </el-select>
+            <el-select v-model="rtFilter.sessionId" clearable placeholder="来源批次" style="width:240px" @change="loadRetrain">
+              <el-option v-for="s in sessions" :key="s.id" :label="s.name" :value="s.id"/>
+            </el-select>
+            <el-select v-model="rtFilter.floor" clearable placeholder="楼层" style="width:110px" @change="loadRetrain">
+              <el-option v-for="fl in meta.floors" :key="fl" :label="fl+'层'" :value="String(fl)"/>
+            </el-select>
+            <el-select v-model="rtFilter.deptId" clearable placeholder="部门" style="width:150px" @change="loadRetrain">
+              <el-option v-for="d in meta.departments" :key="d.id" :label="d.name" :value="d.id"/>
+            </el-select>
+            <el-button @click="loadRetrain">刷新</el-button>
+          </div>
+          <el-alert type="error" :closable="false" show-icon style="margin-bottom:14px"
+            title="未通过线上测验或演练缺训的员工由系统自动进入本名单；完成补考/补训/补签到后自动解除，管理员也可在核实后手动闭环。"/>
+          <el-table :data="retrain" stripe>
+            <el-table-column label="来源批次" min-width="210">
+              <template #default="{row}">{{row.sourceSessionName}}</template>
+            </el-table-column>
+            <el-table-column label="工号" width="90"><template #default="{row}">{{row.emp?.empNo}}</template></el-table-column>
+            <el-table-column label="姓名" width="90"><template #default="{row}">{{row.emp?.name}}</template></el-table-column>
+            <el-table-column label="部门" width="120"><template #default="{row}">{{row.emp?.deptName}}</template></el-table-column>
+            <el-table-column label="岗位" width="100"><template #default="{row}">{{row.emp?.position}}</template></el-table-column>
+            <el-table-column label="楼层" width="70" align="center"><template #default="{row}">{{row.emp?.floor}}层</template></el-table-column>
+            <el-table-column label="入册原因" min-width="200">
+              <template #default="{row}">
+                <el-tag v-for="r in row.reasons" :key="r" type="danger" size="small" effect="plain" style="margin:2px">{{reasonText(r)}}</el-tag>
+              </template>
+            </el-table-column>
+            <el-table-column label="入册时间" width="170">
+              <template #default="{row}">{{new Date(row.createdAt).toLocaleString('zh-CN')}}</template>
+            </el-table-column>
+            <el-table-column label="状态/闭环" width="170">
+              <template #default="{row}">
+                <el-tag v-if="row.status==='pending'" type="danger" size="small">待复训</el-tag>
+                <div v-else>
+                  <el-tag type="success" size="small">已闭环</el-tag>
+                  <div><small>{{row.resolvedAt ? new Date(row.resolvedAt).toLocaleDateString('zh-CN') : ''}}</small></div>
+                </div>
+              </template>
+            </el-table-column>
+            <el-table-column label="操作" width="110" align="center">
+              <template #default="{row}">
+                <el-button v-if="row.status==='pending' && !admin?.guard" link type="primary" @click="closeRetrain(row)">办理闭环</el-button>
+              </template>
+            </el-table-column>
+          </el-table>
+        </div>
+      </div>
+
+      <!-- 考试记录 -->
+      <div v-if="tab==='exams'">
+        <div class="card">
+          <div class="filters">
+            <span style="font-weight:600">批次</span>
+            <el-select v-model="f.sessionId" style="width:280px">
+              <el-option v-for="s in sessions" :key="s.id" :label="s.name" :value="s.id"/>
+            </el-select>
+            <span style="color:#9ca3af;font-size:13px">展示该批次全部交卷记录（含补考）</span>
+          </div>
+          <el-table :data="exams" stripe>
+            <el-table-column label="交卷时间" width="180">
+              <template #default="{row}">{{new Date(row.submittedAt).toLocaleString('zh-CN')}}</template>
+            </el-table-column>
+            <el-table-column label="工号" width="90"><template #default="{row}">{{row.emp?.empNo}}</template></el-table-column>
+            <el-table-column label="姓名" width="90"><template #default="{row}">{{row.emp?.name}}</template></el-table-column>
+            <el-table-column label="部门/楼层" width="150">
+              <template #default="{row}">{{row.emp?.deptName}} · {{row.emp?.floor}}层</template>
+            </el-table-column>
+            <el-table-column label="第几次" width="80" align="center">
+              <template #default="{row}">第{{row.attempt}}次</template>
+            </el-table-column>
+            <el-table-column label="成绩" width="100" align="center">
+              <template #default="{row}"><b :style="{color:row.passed?'#15803d':'#b91c1c'}" style="font-size:16px">{{row.score}}</b></template>
+            </el-table-column>
+            <el-table-column label="结果" width="110">
+              <template #default="{row}"><el-tag :type="row.passed?'success':'danger'" size="small">{{row.passed?'通过':'未通过'}}</el-tag></template>
+            </el-table-column>
+          </el-table>
+        </div>
+      </div>
+    </div>
+  </div>
+  </template>
+  `
+};
+const app = createApp(App);
+app.use(ElementPlus);
+app.mount('#app');
+</script>
+</body>
+</html>

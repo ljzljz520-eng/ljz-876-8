@@ -1,0 +1,2868 @@
+{
+  "floors": [
+    3,
+    5,
+    6,
+    7,
+    8
+  ],
+  "departments": [
+    {
+      "id": "D01",
+      "name": "研发中心",
+      "leader": "王磊"
+    },
+    {
+      "id": "D02",
+      "name": "市场营销部",
+      "leader": "李静"
+    },
+    {
+      "id": "D03",
+      "name": "财务部",
+      "leader": "赵敏"
+    },
+    {
+      "id": "D04",
+      "name": "人力资源部",
+      "leader": "陈刚"
+    },
+    {
+      "id": "D05",
+      "name": "行政安保部",
+      "leader": "周强"
+    }
+  ],
+  "positions": [
+    "正式员工",
+    "班组长",
+    "部门主管",
+    "新入职员工",
+    "前台/值班"
+  ],
+  "employees": [
+    {
+      "id": "E001",
+      "empNo": "E001",
+      "name": "张伟",
+      "deptId": "D01",
+      "jobTitle": "研发工程师",
+      "position": "正式员工",
+      "floor": 5,
+      "password": "123456",
+      "createdAt": "2026-01-10T09:00:00.000Z"
+    },
+    {
+      "id": "E002",
+      "empNo": "E002",
+      "name": "刘洋",
+      "deptId": "D01",
+      "jobTitle": "测试工程师",
+      "position": "正式员工",
+      "floor": 5,
+      "password": "123456",
+      "createdAt": "2026-01-10T09:00:00.000Z"
+    },
+    {
+      "id": "E003",
+      "empNo": "E003",
+      "name": "王磊",
+      "deptId": "D01",
+      "jobTitle": "技术总监",
+      "position": "部门主管",
+      "floor": 5,
+      "password": "123456",
+      "createdAt": "2026-01-10T09:00:00.000Z"
+    },
+    {
+      "id": "E004",
+      "empNo": "E004",
+      "name": "陈晨",
+      "deptId": "D01",
+      "jobTitle": "前端工程师",
+      "position": "正式员工",
+      "floor": 5,
+      "password": "123456",
+      "createdAt": "2026-01-10T09:00:00.000Z"
+    },
+    {
+      "id": "E005",
+      "empNo": "E005",
+      "name": "赵强",
+      "deptId": "D01",
+      "jobTitle": "运维工程师",
+      "position": "班组长",
+      "floor": 6,
+      "password": "123456",
+      "createdAt": "2026-01-10T09:00:00.000Z"
+    },
+    {
+      "id": "E006",
+      "empNo": "E006",
+      "name": "孙丽",
+      "deptId": "D01",
+      "jobTitle": "研发工程师",
+      "position": "新入职员工",
+      "floor": 5,
+      "password": "123456",
+      "createdAt": "2026-01-10T09:00:00.000Z"
+    },
+    {
+      "id": "E007",
+      "empNo": "E007",
+      "name": "周杰",
+      "deptId": "D02",
+      "jobTitle": "市场经理",
+      "position": "部门主管",
+      "floor": 6,
+      "password": "123456",
+      "createdAt": "2026-01-10T09:00:00.000Z"
+    },
+    {
+      "id": "E008",
+      "empNo": "E008",
+      "name": "吴敏",
+      "deptId": "D02",
+      "jobTitle": "市场专员",
+      "position": "正式员工",
+      "floor": 6,
+      "password": "123456",
+      "createdAt": "2026-01-10T09:00:00.000Z"
+    },
+    {
+      "id": "E009",
+      "empNo": "E009",
+      "name": "郑爽",
+      "deptId": "D02",
+      "jobTitle": "品牌专员",
+      "position": "正式员工",
+      "floor": 6,
+      "password": "123456",
+      "createdAt": "2026-01-10T09:00:00.000Z"
+    },
+    {
+      "id": "E010",
+      "empNo": "E010",
+      "name": "冯远",
+      "deptId": "D02",
+      "jobTitle": "渠道专员",
+      "position": "正式员工",
+      "floor": 6,
+      "password": "123456",
+      "createdAt": "2026-01-10T09:00:00.000Z"
+    },
+    {
+      "id": "E011",
+      "empNo": "E011",
+      "name": "褚红",
+      "deptId": "D02",
+      "jobTitle": "市场助理",
+      "position": "新入职员工",
+      "floor": 6,
+      "password": "123456",
+      "createdAt": "2026-01-10T09:00:00.000Z"
+    },
+    {
+      "id": "E012",
+      "empNo": "E012",
+      "name": "卫东",
+      "deptId": "D03",
+      "jobTitle": "会计",
+      "position": "正式员工",
+      "floor": 3,
+      "password": "123456",
+      "createdAt": "2026-01-10T09:00:00.000Z"
+    },
+    {
+      "id": "E013",
+      "empNo": "E013",
+      "name": "蒋琳",
+      "deptId": "D03",
+      "jobTitle": "出纳",
+      "position": "正式员工",
+      "floor": 3,
+      "password": "123456",
+      "createdAt": "2026-01-10T09:00:00.000Z"
+    },
+    {
+      "id": "E014",
+      "empNo": "E014",
+      "name": "沈括",
+      "deptId": "D03",
+      "jobTitle": "财务总监",
+      "position": "部门主管",
+      "floor": 3,
+      "password": "123456",
+      "createdAt": "2026-01-10T09:00:00.000Z"
+    },
+    {
+      "id": "E015",
+      "empNo": "E015",
+      "name": "韩雪",
+      "deptId": "D03",
+      "jobTitle": "税务会计",
+      "position": "正式员工",
+      "floor": 3,
+      "password": "123456",
+      "createdAt": "2026-01-10T09:00:00.000Z"
+    },
+    {
+      "id": "E016",
+      "empNo": "E016",
+      "name": "杨阳",
+      "deptId": "D04",
+      "jobTitle": "招聘主管",
+      "position": "班组长",
+      "floor": 7,
+      "password": "123456",
+      "createdAt": "2026-01-10T09:00:00.000Z"
+    },
+    {
+      "id": "E017",
+      "empNo": "E017",
+      "name": "朱珠",
+      "deptId": "D04",
+      "jobTitle": "HRBP",
+      "position": "正式员工",
+      "floor": 7,
+      "password": "123456",
+      "createdAt": "2026-01-10T09:00:00.000Z"
+    },
+    {
+      "id": "E018",
+      "empNo": "E018",
+      "name": "秦海",
+      "deptId": "D04",
+      "jobTitle": "培训专员",
+      "position": "正式员工",
+      "floor": 7,
+      "password": "123456",
+      "createdAt": "2026-01-10T09:00:00.000Z"
+    },
+    {
+      "id": "E019",
+      "empNo": "E019",
+      "name": "尤静",
+      "deptId": "D04",
+      "jobTitle": "人事助理",
+      "position": "新入职员工",
+      "floor": 7,
+      "password": "123456",
+      "createdAt": "2026-01-10T09:00:00.000Z"
+    },
+    {
+      "id": "E020",
+      "empNo": "E020",
+      "name": "许峰",
+      "deptId": "D05",
+      "jobTitle": "安保主管",
+      "position": "部门主管",
+      "floor": 8,
+      "password": "123456",
+      "createdAt": "2026-01-10T09:00:00.000Z"
+    },
+    {
+      "id": "E021",
+      "empNo": "E021",
+      "name": "何勇",
+      "deptId": "D05",
+      "jobTitle": "消防员",
+      "position": "班组长",
+      "floor": 8,
+      "password": "123456",
+      "createdAt": "2026-01-10T09:00:00.000Z"
+    },
+    {
+      "id": "E022",
+      "empNo": "E022",
+      "name": "吕布",
+      "deptId": "D05",
+      "jobTitle": "安保员",
+      "position": "正式员工",
+      "floor": 8,
+      "password": "123456",
+      "createdAt": "2026-01-10T09:00:00.000Z"
+    },
+    {
+      "id": "E024",
+      "empNo": "E024",
+      "name": "施然",
+      "deptId": "D05",
+      "jobTitle": "行政前台",
+      "position": "前台/值班",
+      "floor": 3,
+      "password": "123456",
+      "createdAt": "2026-01-10T09:00:00.000Z"
+    },
+    {
+      "id": "E025",
+      "empNo": "E025",
+      "name": "张涛",
+      "deptId": "D01",
+      "jobTitle": "架构师",
+      "position": "正式员工",
+      "floor": 7,
+      "password": "123456",
+      "createdAt": "2026-01-10T09:00:00.000Z"
+    },
+    {
+      "id": "E026",
+      "empNo": "E026",
+      "name": "孔敏",
+      "deptId": "D02",
+      "jobTitle": "活动策划",
+      "position": "正式员工",
+      "floor": 7,
+      "password": "123456",
+      "createdAt": "2026-01-10T09:00:00.000Z"
+    },
+    {
+      "id": "E027",
+      "empNo": "E027",
+      "name": "曹颖",
+      "deptId": "D04",
+      "jobTitle": "薪酬专员",
+      "position": "正式员工",
+      "floor": 7,
+      "password": "123456",
+      "createdAt": "2026-01-10T09:00:00.000Z"
+    },
+    {
+      "id": "E028",
+      "empNo": "E028",
+      "name": "严松",
+      "deptId": "D05",
+      "jobTitle": "安保员",
+      "position": "正式员工",
+      "floor": 8,
+      "password": "123456",
+      "createdAt": "2026-01-10T09:00:00.000Z"
+    },
+    {
+      "id": "E029",
+      "empNo": "E029",
+      "name": "华兰",
+      "deptId": "D05",
+      "jobTitle": "监控值班",
+      "position": "前台/值班",
+      "floor": 8,
+      "password": "123456",
+      "createdAt": "2026-01-10T09:00:00.000Z"
+    },
+    {
+      "id": "E030",
+      "empNo": "E030",
+      "name": "金鑫",
+      "deptId": "D01",
+      "jobTitle": "研发工程师",
+      "position": "新入职员工",
+      "floor": 6,
+      "password": "123456",
+      "createdAt": "2026-01-10T09:00:00.000Z"
+    },
+    {
+      "id": "E023",
+      "empNo": "E023",
+      "name": "罗飞",
+      "deptId": "D05",
+      "jobTitle": "安保员",
+      "position": "正式员工",
+      "floor": 8,
+      "password": "123456",
+      "createdAt": "2026-01-10T09:00:00.000Z"
+    }
+  ],
+  "admins": [
+    {
+      "id": "A001",
+      "username": "admin",
+      "password": "admin123",
+      "name": "消防安全管理员",
+      "role": "admin"
+    },
+    {
+      "id": "A002",
+      "username": "guard",
+      "password": "guard123",
+      "name": "签到台值班员",
+      "role": "guard"
+    }
+  ],
+  "courses": [
+    {
+      "id": "C01",
+      "key": "extinguisher",
+      "title": "灭火器使用",
+      "durationMin": 15,
+      "summary": "识别灭火器类型、掌握\"提、拔、握、压\"四步法，针对不同火情正确选择灭火器。",
+      "sections": [
+        {
+          "heading": "一、灭火器类型与适用火情",
+          "body": "① 干粉灭火器（ABC/BC）：适用固体、液体、气体及带电设备初起火灾；\n② 二氧化碳灭火器：适用精密仪器、带电设备火灾，不适用室外大风环境；\n③ 水基型灭火器：适用固体/液体火灾，不可用于带电设备和油锅火灾。\n办公室常见为 4kg 手提式干粉灭火器，压力表红区=压力不足、绿区=正常、黄区=压力过高。"
+        },
+        {
+          "heading": "二、\"提拔握压\"四步法",
+          "body": "一提：提起灭火器，迅速赶到着火点；\n二拔：拔掉保险销；\n三握：一手握住喷管前端（二氧化碳型握喇叭筒防冻伤），另一手握紧压把；\n四压：距火源 2~3 米处，压下压把，左右扫射，对准火焰根部由近及远灭火。"
+        },
+        {
+          "heading": "三、注意事项",
+          "body": "① 站在上风方向，保持安全距离；\n② 电器火灾先断电，无法断电时严禁用水；\n③ 火势失控或有爆炸/中毒风险时立即撤离并报警，切勿贪恋财物；\n④ 使用后灭火器即使有剩余也须送修重新充装。"
+        }
+      ]
+    },
+    {
+      "id": "C02",
+      "key": "evacuation",
+      "title": "疏散路线",
+      "durationMin": 12,
+      "summary": "熟悉本楼层疏散通道与集合点，掌握低姿、防烟、有序撤离要点。",
+      "sections": [
+        {
+          "heading": "一、疏散前准备",
+          "body": "① 入职/换岗时确认所在楼层安全出口、疏散楼梯位置，牢记两条不同方向的逃生路线；\n② 留意地面蓄光疏散指示标识、墙面安全出口灯；\n③ 严禁占用、锁闭疏散通道和安全出口，严禁在楼梯间堆放杂物。"
+        },
+        {
+          "heading": "二、疏散动作要领",
+          "body": "① 听到警报或广播后立即停止工作，沿最近安全出口快速有序撤离，不乘电梯；\n② 用湿毛巾/衣袖捂住口鼻，弯腰低姿或匍匐前进（烟气上浮，近地面空气较清新）；\n③ 关门隔烟：经过的防火门随手关闭，阻止烟火蔓延；\n④ 不折返、不拥挤、不推搡，照顾身边受伤及行动不便同事。"
+        },
+        {
+          "heading": "三、集合与清点",
+          "body": "① 按楼层疏散至指定集合点（大厦东侧停车场 A 区）；\n② 各班组长/部门主管清点人数，向现场指挥员报告；\n③ 未经许可不得返回大楼；被困时退回有窗房间、堵门缝、挥舞鲜艳衣物呼救并拨打 119。"
+        }
+      ]
+    },
+    {
+      "id": "C03",
+      "key": "alarm",
+      "title": "报警流程",
+      "durationMin": 10,
+      "summary": "掌握内部报警与 119 报警要素，会使用手动报警按钮和灭火器材初期处置。",
+      "sections": [
+        {
+          "heading": "一、发现火情先做什么",
+          "body": "① 大声呼喊\"着火了\"警示周边人员；\n② 按下走廊墙壁上的手动火灾报警按钮（击碎玻璃/按下压板），消防控制室同步收到信号；\n③ 火情初起（约废纸篓大小）时在确保安全前提下取用灭火器扑救；火势扩大立即撤离。"
+        },
+        {
+          "heading": "二、拨打 119 五要素",
+          "body": "① 详细地址：XX市XX区XX路XX号XX大厦X层；\n② 起火物：电器/纸张/油类等；\n③ 火势大小、有无人员被困；\n④ 报警人姓名及联系电话；\n⑤ 安排人员到路口/大门口引导消防车。\n报警后保持电话畅通，配合消防部门询问。"
+        },
+        {
+          "heading": "三、内部上报链",
+          "body": "第一发现人 → 部门负责人 / 当班安保 → 消防控制室（内线 8119）→ 启动应急广播 → 全员疏散。\n严禁谎报、瞒报火警，严禁在未确认安全情况下擅自断电、破拆。"
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "Q01",
+      "courseId": "C01",
+      "type": "single",
+      "stem": "办公室常用的 4kg 手提式干粉灭火器，压力表指针指向哪个区域表示压力正常？",
+      "options": [
+        "红色区域",
+        "绿色区域",
+        "黄色区域",
+        "任何区域都可以"
+      ],
+      "answer": 1,
+      "analysis": "绿区为正常压力区间；红区压力不足需检修充装，黄区为超压。"
+    },
+    {
+      "id": "Q02",
+      "courseId": "C01",
+      "type": "single",
+      "stem": "使用手提式灭火器的正确四步顺序是？",
+      "options": [
+        "拔销—提起—压把—握管",
+        "提起—拔销—握管—压把",
+        "握管—压把—提起—拔销",
+        "压把—提起—拔销—握管"
+      ],
+      "answer": 1,
+      "analysis": "口诀\"提、拔、握、压\"。"
+    },
+    {
+      "id": "Q03",
+      "courseId": "C01",
+      "type": "single",
+      "stem": "扑救带电电气设备火灾，在无法断电时应选用？",
+      "options": [
+        "清水",
+        "泡沫灭火器",
+        "二氧化碳或干粉灭火器",
+        "湿棉被覆盖"
+      ],
+      "answer": 2,
+      "analysis": "二氧化碳/干粉不导电；水和泡沫有触电危险。"
+    },
+    {
+      "id": "Q04",
+      "courseId": "C01",
+      "type": "single",
+      "stem": "灭火时喷射应对准火焰的哪个部位？",
+      "options": [
+        "火焰顶部",
+        "火焰中部",
+        "火焰根部",
+        "周围空气"
+      ],
+      "answer": 2,
+      "analysis": "对准根部才能切断燃烧源，并左右扫射由近及远。"
+    },
+    {
+      "id": "Q05",
+      "courseId": "C01",
+      "type": "single",
+      "stem": "室外使用灭火器灭火时，人应站在什么位置？",
+      "options": [
+        "下风方向",
+        "上风方向",
+        "正对火焰中心",
+        "任意位置"
+      ],
+      "answer": 1,
+      "analysis": "站在上风方向可避免烟气和干粉被吹向自己。"
+    },
+    {
+      "id": "Q06",
+      "courseId": "C02",
+      "type": "single",
+      "stem": "火灾疏散时，能否乘坐普通电梯下楼？",
+      "options": [
+        "可以，电梯最快",
+        "不可以，应走疏散楼梯",
+        "人少时可以",
+        "停电时才不能用"
+      ],
+      "answer": 1,
+      "analysis": "火灾可能断电致电梯困人，且电梯井有烟囱效应，必须走楼梯。"
+    },
+    {
+      "id": "Q07",
+      "courseId": "C02",
+      "type": "single",
+      "stem": "穿过浓烟区域疏散时，正确的做法是？",
+      "options": [
+        "直立奔跑快速通过",
+        "用湿毛巾捂住口鼻、弯腰低姿前行",
+        "屏住呼吸原地等待",
+        "乘电梯下楼"
+      ],
+      "answer": 1,
+      "analysis": "烟气上浮，近地面空气较清洁；湿毛巾可过滤部分烟尘。"
+    },
+    {
+      "id": "Q08",
+      "courseId": "C02",
+      "type": "single",
+      "stem": "疏散经过防火门时应当？",
+      "options": [
+        "保持敞开方便他人",
+        "随手关闭以阻隔烟火蔓延",
+        "用杂物顶住",
+        "拆掉门吸固定"
+      ],
+      "answer": 1,
+      "analysis": "关闭防火门可形成防火防烟分区，延缓烟火蔓延。"
+    },
+    {
+      "id": "Q09",
+      "courseId": "C02",
+      "type": "single",
+      "stem": "到达集合点后，第一件重要的事情是？",
+      "options": [
+        "立即回家",
+        "排队领水休息",
+        "由班组长/主管清点人数并上报",
+        "自行返回拿物品"
+      ],
+      "answer": 2,
+      "analysis": "清点人数用于确认无人被困，指导救援决策。"
+    },
+    {
+      "id": "Q10",
+      "courseId": "C02",
+      "type": "single",
+      "stem": "如果所有逃生通道都被大火封堵，正确做法是？",
+      "options": [
+        "直接从窗户跳下",
+        "退回有窗房间，用湿物堵门缝、挥舞鲜艳物品呼救并拨打119",
+        "躲进电梯",
+        "向楼顶奔跑并大声呼救"
+      ],
+      "answer": 1,
+      "analysis": "退回安全房间、封堵门缝、窗口呼救等待救援是正确求生方法。"
+    },
+    {
+      "id": "Q11",
+      "courseId": "C03",
+      "type": "single",
+      "stem": "发现初起火情的第一反应应当是？",
+      "options": [
+        "先拍照发群里",
+        "大声呼喊警示周围人员并按下手动报警按钮",
+        "自己先跑",
+        "等领导决定"
+      ],
+      "answer": 1,
+      "analysis": "报警与警示优先，为疏散和扑救争取时间。"
+    },
+    {
+      "id": "Q12",
+      "courseId": "C03",
+      "type": "single",
+      "stem": "拨打 119 报警时，以下哪项不是必须说明的要素？",
+      "options": [
+        "详细地址和起火楼层",
+        "起火物质和火势",
+        "被困人员情况",
+        "公司去年的营业额"
+      ],
+      "answer": 3,
+      "analysis": "五要素：地址、起火物、火势/被困、报警人信息、派人引导。"
+    },
+    {
+      "id": "Q13",
+      "courseId": "C03",
+      "type": "single",
+      "stem": "本楼消防控制室的内线报警电话是？",
+      "options": [
+        "8119",
+        "110",
+        "120",
+        "10086"
+      ],
+      "answer": 0,
+      "analysis": "消防控制室内线 8119（谐音119）。"
+    },
+    {
+      "id": "Q14",
+      "courseId": "C03",
+      "type": "single",
+      "stem": "关于初起火灾扑救，下列说法正确的是？",
+      "options": [
+        "任何火灾都必须先灭火",
+        "废纸篓大小的初起火可在确保安全时用灭火器扑救，火势扩大立即撤离",
+        "先抢救贵重财物",
+        "回办公室关电脑"
+      ],
+      "answer": 1,
+      "analysis": "初起火可快速处置，火势失控须立即逃生报警。"
+    },
+    {
+      "id": "Q15",
+      "courseId": "C03",
+      "type": "single",
+      "stem": "报警后，安排人员到大厦门口/路口的主要目的是？",
+      "options": [
+        "维持交通罚款",
+        "引导消防车快速到达起火位置",
+        "接受媒体采访",
+        "登记疏散人数"
+      ],
+      "answer": 1,
+      "analysis": "引导消防车可显著缩短到场和展开时间。"
+    }
+  ],
+  "sessions": [
+    {
+      "id": "S01",
+      "name": "2026年上半年综合消防演练",
+      "drillDate": "2026-06-18",
+      "drillTime": "15:00",
+      "location": "大厦东侧集合点（停车场A区）",
+      "floors": [
+        3,
+        5,
+        6
+      ],
+      "passScore": 80,
+      "status": "closed",
+      "remark": "覆盖3/5/6层，已完成补训闭环。"
+    },
+    {
+      "id": "S02",
+      "name": "2026年三季度高层疏散演练",
+      "drillDate": "2026-09-25",
+      "drillTime": "10:30",
+      "location": "大厦东侧集合点（停车场A区）",
+      "floors": [
+        7,
+        8
+      ],
+      "passScore": 80,
+      "status": "ongoing",
+      "remark": "覆盖7/8层；线下演练已结束，签到与测验收尾中。"
+    },
+    {
+      "id": "S03",
+      "name": "2026年三季度补训专场",
+      "drillDate": "2026-10-15",
+      "drillTime": "16:00",
+      "location": "8层多功能厅+东侧集合点",
+      "floors": [
+        3,
+        5,
+        6,
+        7,
+        8
+      ],
+      "passScore": 80,
+      "status": "planned",
+      "remark": "面向未通过/缺训人员的复训补考补签到。"
+    }
+  ],
+  "sessionEmployees": [
+    {
+      "sessionId": "S01",
+      "empId": "E001"
+    },
+    {
+      "sessionId": "S01",
+      "empId": "E002"
+    },
+    {
+      "sessionId": "S01",
+      "empId": "E003"
+    },
+    {
+      "sessionId": "S01",
+      "empId": "E004"
+    },
+    {
+      "sessionId": "S01",
+      "empId": "E005"
+    },
+    {
+      "sessionId": "S01",
+      "empId": "E006"
+    },
+    {
+      "sessionId": "S01",
+      "empId": "E007"
+    },
+    {
+      "sessionId": "S01",
+      "empId": "E008"
+    },
+    {
+      "sessionId": "S01",
+      "empId": "E009"
+    },
+    {
+      "sessionId": "S01",
+      "empId": "E010"
+    },
+    {
+      "sessionId": "S01",
+      "empId": "E011"
+    },
+    {
+      "sessionId": "S01",
+      "empId": "E012"
+    },
+    {
+      "sessionId": "S01",
+      "empId": "E013"
+    },
+    {
+      "sessionId": "S01",
+      "empId": "E014"
+    },
+    {
+      "sessionId": "S01",
+      "empId": "E015"
+    },
+    {
+      "sessionId": "S01",
+      "empId": "E024"
+    },
+    {
+      "sessionId": "S01",
+      "empId": "E030"
+    },
+    {
+      "sessionId": "S02",
+      "empId": "E016"
+    },
+    {
+      "sessionId": "S02",
+      "empId": "E017"
+    },
+    {
+      "sessionId": "S02",
+      "empId": "E018"
+    },
+    {
+      "sessionId": "S02",
+      "empId": "E019"
+    },
+    {
+      "sessionId": "S02",
+      "empId": "E020"
+    },
+    {
+      "sessionId": "S02",
+      "empId": "E021"
+    },
+    {
+      "sessionId": "S02",
+      "empId": "E022"
+    },
+    {
+      "sessionId": "S02",
+      "empId": "E025"
+    },
+    {
+      "sessionId": "S02",
+      "empId": "E026"
+    },
+    {
+      "sessionId": "S02",
+      "empId": "E027"
+    },
+    {
+      "sessionId": "S02",
+      "empId": "E028"
+    },
+    {
+      "sessionId": "S02",
+      "empId": "E029"
+    },
+    {
+      "sessionId": "S02",
+      "empId": "E023"
+    },
+    {
+      "sessionId": "S03",
+      "empId": "E001"
+    },
+    {
+      "sessionId": "S03",
+      "empId": "E002"
+    },
+    {
+      "sessionId": "S03",
+      "empId": "E003"
+    },
+    {
+      "sessionId": "S03",
+      "empId": "E004"
+    },
+    {
+      "sessionId": "S03",
+      "empId": "E005"
+    },
+    {
+      "sessionId": "S03",
+      "empId": "E006"
+    },
+    {
+      "sessionId": "S03",
+      "empId": "E007"
+    },
+    {
+      "sessionId": "S03",
+      "empId": "E008"
+    },
+    {
+      "sessionId": "S03",
+      "empId": "E009"
+    },
+    {
+      "sessionId": "S03",
+      "empId": "E010"
+    },
+    {
+      "sessionId": "S03",
+      "empId": "E011"
+    },
+    {
+      "sessionId": "S03",
+      "empId": "E012"
+    },
+    {
+      "sessionId": "S03",
+      "empId": "E013"
+    },
+    {
+      "sessionId": "S03",
+      "empId": "E014"
+    },
+    {
+      "sessionId": "S03",
+      "empId": "E015"
+    },
+    {
+      "sessionId": "S03",
+      "empId": "E016"
+    },
+    {
+      "sessionId": "S03",
+      "empId": "E017"
+    },
+    {
+      "sessionId": "S03",
+      "empId": "E018"
+    },
+    {
+      "sessionId": "S03",
+      "empId": "E019"
+    },
+    {
+      "sessionId": "S03",
+      "empId": "E020"
+    },
+    {
+      "sessionId": "S03",
+      "empId": "E021"
+    },
+    {
+      "sessionId": "S03",
+      "empId": "E022"
+    },
+    {
+      "sessionId": "S03",
+      "empId": "E024"
+    },
+    {
+      "sessionId": "S03",
+      "empId": "E025"
+    },
+    {
+      "sessionId": "S03",
+      "empId": "E026"
+    },
+    {
+      "sessionId": "S03",
+      "empId": "E027"
+    },
+    {
+      "sessionId": "S03",
+      "empId": "E028"
+    },
+    {
+      "sessionId": "S03",
+      "empId": "E029"
+    },
+    {
+      "sessionId": "S03",
+      "empId": "E030"
+    },
+    {
+      "sessionId": "S03",
+      "empId": "E023"
+    }
+  ],
+  "learning": [
+    {
+      "id": "L0001",
+      "sessionId": "S01",
+      "empId": "E001",
+      "courseId": "C01",
+      "completedAt": "2026-06-15T08:30:00.000Z"
+    },
+    {
+      "id": "L0002",
+      "sessionId": "S01",
+      "empId": "E001",
+      "courseId": "C02",
+      "completedAt": "2026-06-16T09:31:00.000Z"
+    },
+    {
+      "id": "L0003",
+      "sessionId": "S01",
+      "empId": "E001",
+      "courseId": "C03",
+      "completedAt": "2026-06-15T010:32:00.000Z"
+    },
+    {
+      "id": "L0004",
+      "sessionId": "S01",
+      "empId": "E002",
+      "courseId": "C01",
+      "completedAt": "2026-06-16T08:30:00.000Z"
+    },
+    {
+      "id": "L0005",
+      "sessionId": "S01",
+      "empId": "E002",
+      "courseId": "C02",
+      "completedAt": "2026-06-16T09:31:00.000Z"
+    },
+    {
+      "id": "L0006",
+      "sessionId": "S01",
+      "empId": "E002",
+      "courseId": "C03",
+      "completedAt": "2026-06-16T010:32:00.000Z"
+    },
+    {
+      "id": "L0007",
+      "sessionId": "S01",
+      "empId": "E003",
+      "courseId": "C01",
+      "completedAt": "2026-06-16T08:30:00.000Z"
+    },
+    {
+      "id": "L0008",
+      "sessionId": "S01",
+      "empId": "E003",
+      "courseId": "C02",
+      "completedAt": "2026-06-15T09:31:00.000Z"
+    },
+    {
+      "id": "L0009",
+      "sessionId": "S01",
+      "empId": "E003",
+      "courseId": "C03",
+      "completedAt": "2026-06-15T010:32:00.000Z"
+    },
+    {
+      "id": "L0010",
+      "sessionId": "S01",
+      "empId": "E004",
+      "courseId": "C01",
+      "completedAt": "2026-06-15T08:30:00.000Z"
+    },
+    {
+      "id": "L0011",
+      "sessionId": "S01",
+      "empId": "E004",
+      "courseId": "C02",
+      "completedAt": "2026-06-15T09:31:00.000Z"
+    },
+    {
+      "id": "L0012",
+      "sessionId": "S01",
+      "empId": "E004",
+      "courseId": "C03",
+      "completedAt": "2026-06-16T010:32:00.000Z"
+    },
+    {
+      "id": "L0013",
+      "sessionId": "S01",
+      "empId": "E005",
+      "courseId": "C01",
+      "completedAt": "2026-06-16T08:30:00.000Z"
+    },
+    {
+      "id": "L0014",
+      "sessionId": "S01",
+      "empId": "E005",
+      "courseId": "C02",
+      "completedAt": "2026-06-16T09:31:00.000Z"
+    },
+    {
+      "id": "L0015",
+      "sessionId": "S01",
+      "empId": "E005",
+      "courseId": "C03",
+      "completedAt": "2026-06-15T010:32:00.000Z"
+    },
+    {
+      "id": "L0016",
+      "sessionId": "S01",
+      "empId": "E006",
+      "courseId": "C01",
+      "completedAt": "2026-06-16T08:30:00.000Z"
+    },
+    {
+      "id": "L0017",
+      "sessionId": "S01",
+      "empId": "E006",
+      "courseId": "C02",
+      "completedAt": "2026-06-16T09:31:00.000Z"
+    },
+    {
+      "id": "L0018",
+      "sessionId": "S01",
+      "empId": "E006",
+      "courseId": "C03",
+      "completedAt": "2026-06-15T010:32:00.000Z"
+    },
+    {
+      "id": "L0019",
+      "sessionId": "S01",
+      "empId": "E007",
+      "courseId": "C01",
+      "completedAt": "2026-06-15T08:30:00.000Z"
+    },
+    {
+      "id": "L0020",
+      "sessionId": "S01",
+      "empId": "E007",
+      "courseId": "C02",
+      "completedAt": "2026-06-15T09:31:00.000Z"
+    },
+    {
+      "id": "L0021",
+      "sessionId": "S01",
+      "empId": "E007",
+      "courseId": "C03",
+      "completedAt": "2026-06-15T010:32:00.000Z"
+    },
+    {
+      "id": "L0022",
+      "sessionId": "S01",
+      "empId": "E008",
+      "courseId": "C01",
+      "completedAt": "2026-06-15T08:30:00.000Z"
+    },
+    {
+      "id": "L0023",
+      "sessionId": "S01",
+      "empId": "E008",
+      "courseId": "C02",
+      "completedAt": "2026-06-15T09:31:00.000Z"
+    },
+    {
+      "id": "L0024",
+      "sessionId": "S01",
+      "empId": "E008",
+      "courseId": "C03",
+      "completedAt": "2026-06-15T010:32:00.000Z"
+    },
+    {
+      "id": "L0025",
+      "sessionId": "S01",
+      "empId": "E009",
+      "courseId": "C01",
+      "completedAt": "2026-06-15T08:30:00.000Z"
+    },
+    {
+      "id": "L0026",
+      "sessionId": "S01",
+      "empId": "E009",
+      "courseId": "C02",
+      "completedAt": "2026-06-15T09:31:00.000Z"
+    },
+    {
+      "id": "L0027",
+      "sessionId": "S01",
+      "empId": "E009",
+      "courseId": "C03",
+      "completedAt": "2026-06-15T010:32:00.000Z"
+    },
+    {
+      "id": "L0028",
+      "sessionId": "S01",
+      "empId": "E009",
+      "courseId": "C01",
+      "completedAt": "2026-06-22T09:00:00.000Z",
+      "retake": true
+    },
+    {
+      "id": "L0029",
+      "sessionId": "S01",
+      "empId": "E009",
+      "courseId": "C02",
+      "completedAt": "2026-06-22T09:00:00.000Z",
+      "retake": true
+    },
+    {
+      "id": "L0030",
+      "sessionId": "S01",
+      "empId": "E009",
+      "courseId": "C03",
+      "completedAt": "2026-06-22T09:00:00.000Z",
+      "retake": true
+    },
+    {
+      "id": "L0031",
+      "sessionId": "S01",
+      "empId": "E010",
+      "courseId": "C01",
+      "completedAt": "2026-06-16T08:30:00.000Z"
+    },
+    {
+      "id": "L0032",
+      "sessionId": "S01",
+      "empId": "E010",
+      "courseId": "C02",
+      "completedAt": "2026-06-16T09:31:00.000Z"
+    },
+    {
+      "id": "L0033",
+      "sessionId": "S01",
+      "empId": "E010",
+      "courseId": "C03",
+      "completedAt": "2026-06-15T010:32:00.000Z"
+    },
+    {
+      "id": "L0034",
+      "sessionId": "S01",
+      "empId": "E011",
+      "courseId": "C01",
+      "completedAt": "2026-06-15T08:30:00.000Z"
+    },
+    {
+      "id": "L0035",
+      "sessionId": "S01",
+      "empId": "E011",
+      "courseId": "C02",
+      "completedAt": "2026-06-16T09:31:00.000Z"
+    },
+    {
+      "id": "L0036",
+      "sessionId": "S01",
+      "empId": "E011",
+      "courseId": "C03",
+      "completedAt": "2026-06-16T010:32:00.000Z"
+    },
+    {
+      "id": "L0037",
+      "sessionId": "S01",
+      "empId": "E012",
+      "courseId": "C01",
+      "completedAt": "2026-06-16T08:30:00.000Z"
+    },
+    {
+      "id": "L0038",
+      "sessionId": "S01",
+      "empId": "E012",
+      "courseId": "C02",
+      "completedAt": "2026-06-15T09:31:00.000Z"
+    },
+    {
+      "id": "L0039",
+      "sessionId": "S01",
+      "empId": "E012",
+      "courseId": "C03",
+      "completedAt": "2026-06-16T010:32:00.000Z"
+    },
+    {
+      "id": "L0040",
+      "sessionId": "S01",
+      "empId": "E012",
+      "courseId": "C01",
+      "completedAt": "2026-06-22T09:00:00.000Z",
+      "retake": true
+    },
+    {
+      "id": "L0041",
+      "sessionId": "S01",
+      "empId": "E012",
+      "courseId": "C02",
+      "completedAt": "2026-06-22T09:00:00.000Z",
+      "retake": true
+    },
+    {
+      "id": "L0042",
+      "sessionId": "S01",
+      "empId": "E012",
+      "courseId": "C03",
+      "completedAt": "2026-06-22T09:00:00.000Z",
+      "retake": true
+    },
+    {
+      "id": "L0043",
+      "sessionId": "S01",
+      "empId": "E013",
+      "courseId": "C01",
+      "completedAt": "2026-06-15T08:30:00.000Z"
+    },
+    {
+      "id": "L0044",
+      "sessionId": "S01",
+      "empId": "E013",
+      "courseId": "C02",
+      "completedAt": "2026-06-16T09:31:00.000Z"
+    },
+    {
+      "id": "L0045",
+      "sessionId": "S01",
+      "empId": "E013",
+      "courseId": "C03",
+      "completedAt": "2026-06-15T010:32:00.000Z"
+    },
+    {
+      "id": "L0046",
+      "sessionId": "S01",
+      "empId": "E014",
+      "courseId": "C01",
+      "completedAt": "2026-06-16T08:30:00.000Z"
+    },
+    {
+      "id": "L0047",
+      "sessionId": "S01",
+      "empId": "E014",
+      "courseId": "C02",
+      "completedAt": "2026-06-16T09:31:00.000Z"
+    },
+    {
+      "id": "L0048",
+      "sessionId": "S01",
+      "empId": "E014",
+      "courseId": "C03",
+      "completedAt": "2026-06-15T010:32:00.000Z"
+    },
+    {
+      "id": "L0049",
+      "sessionId": "S01",
+      "empId": "E015",
+      "courseId": "C01",
+      "completedAt": "2026-06-15T08:30:00.000Z"
+    },
+    {
+      "id": "L0050",
+      "sessionId": "S01",
+      "empId": "E015",
+      "courseId": "C02",
+      "completedAt": "2026-06-16T09:31:00.000Z"
+    },
+    {
+      "id": "L0051",
+      "sessionId": "S01",
+      "empId": "E015",
+      "courseId": "C03",
+      "completedAt": "2026-06-16T010:32:00.000Z"
+    },
+    {
+      "id": "L0052",
+      "sessionId": "S01",
+      "empId": "E024",
+      "courseId": "C01",
+      "completedAt": "2026-06-15T08:30:00.000Z"
+    },
+    {
+      "id": "L0053",
+      "sessionId": "S01",
+      "empId": "E024",
+      "courseId": "C02",
+      "completedAt": "2026-06-15T09:31:00.000Z"
+    },
+    {
+      "id": "L0054",
+      "sessionId": "S01",
+      "empId": "E024",
+      "courseId": "C03",
+      "completedAt": "2026-06-15T010:32:00.000Z"
+    },
+    {
+      "id": "L0055",
+      "sessionId": "S01",
+      "empId": "E030",
+      "courseId": "C01",
+      "completedAt": "2026-06-15T08:30:00.000Z"
+    },
+    {
+      "id": "L0056",
+      "sessionId": "S01",
+      "empId": "E030",
+      "courseId": "C02",
+      "completedAt": "2026-06-15T09:31:00.000Z"
+    },
+    {
+      "id": "L0057",
+      "sessionId": "S01",
+      "empId": "E030",
+      "courseId": "C03",
+      "completedAt": "2026-06-16T010:32:00.000Z"
+    },
+    {
+      "id": "L0058",
+      "sessionId": "S02",
+      "empId": "E016",
+      "courseId": "C01",
+      "completedAt": "2026-09-22T02:00:00.000Z"
+    },
+    {
+      "id": "L0059",
+      "sessionId": "S02",
+      "empId": "E016",
+      "courseId": "C02",
+      "completedAt": "2026-09-23T03:00:00.000Z"
+    },
+    {
+      "id": "L0060",
+      "sessionId": "S02",
+      "empId": "E016",
+      "courseId": "C03",
+      "completedAt": "2026-09-24T04:00:00.000Z"
+    },
+    {
+      "id": "L0061",
+      "sessionId": "S02",
+      "empId": "E017",
+      "courseId": "C01",
+      "completedAt": "2026-09-22T02:00:00.000Z"
+    },
+    {
+      "id": "L0062",
+      "sessionId": "S02",
+      "empId": "E017",
+      "courseId": "C02",
+      "completedAt": "2026-09-23T03:00:00.000Z"
+    },
+    {
+      "id": "L0063",
+      "sessionId": "S02",
+      "empId": "E017",
+      "courseId": "C03",
+      "completedAt": "2026-09-24T04:00:00.000Z"
+    },
+    {
+      "id": "L0064",
+      "sessionId": "S02",
+      "empId": "E018",
+      "courseId": "C01",
+      "completedAt": "2026-09-22T02:00:00.000Z"
+    },
+    {
+      "id": "L0065",
+      "sessionId": "S02",
+      "empId": "E018",
+      "courseId": "C02",
+      "completedAt": "2026-09-23T03:00:00.000Z"
+    },
+    {
+      "id": "L0066",
+      "sessionId": "S02",
+      "empId": "E019",
+      "courseId": "C01",
+      "completedAt": "2026-09-22T02:00:00.000Z"
+    },
+    {
+      "id": "L0067",
+      "sessionId": "S02",
+      "empId": "E020",
+      "courseId": "C01",
+      "completedAt": "2026-09-22T02:00:00.000Z"
+    },
+    {
+      "id": "L0068",
+      "sessionId": "S02",
+      "empId": "E020",
+      "courseId": "C02",
+      "completedAt": "2026-09-23T03:00:00.000Z"
+    },
+    {
+      "id": "L0069",
+      "sessionId": "S02",
+      "empId": "E020",
+      "courseId": "C03",
+      "completedAt": "2026-09-24T04:00:00.000Z"
+    },
+    {
+      "id": "L0070",
+      "sessionId": "S02",
+      "empId": "E021",
+      "courseId": "C01",
+      "completedAt": "2026-09-22T02:00:00.000Z"
+    },
+    {
+      "id": "L0071",
+      "sessionId": "S02",
+      "empId": "E021",
+      "courseId": "C02",
+      "completedAt": "2026-09-23T03:00:00.000Z"
+    },
+    {
+      "id": "L0072",
+      "sessionId": "S02",
+      "empId": "E021",
+      "courseId": "C03",
+      "completedAt": "2026-09-24T04:00:00.000Z"
+    },
+    {
+      "id": "L0073",
+      "sessionId": "S02",
+      "empId": "E022",
+      "courseId": "C01",
+      "completedAt": "2026-09-22T02:00:00.000Z"
+    },
+    {
+      "id": "L0074",
+      "sessionId": "S02",
+      "empId": "E022",
+      "courseId": "C02",
+      "completedAt": "2026-09-23T03:00:00.000Z"
+    },
+    {
+      "id": "L0075",
+      "sessionId": "S02",
+      "empId": "E022",
+      "courseId": "C03",
+      "completedAt": "2026-09-24T04:00:00.000Z"
+    },
+    {
+      "id": "L0076",
+      "sessionId": "S02",
+      "empId": "E025",
+      "courseId": "C01",
+      "completedAt": "2026-09-22T02:00:00.000Z"
+    },
+    {
+      "id": "L0077",
+      "sessionId": "S02",
+      "empId": "E025",
+      "courseId": "C02",
+      "completedAt": "2026-09-23T03:00:00.000Z"
+    },
+    {
+      "id": "L0078",
+      "sessionId": "S02",
+      "empId": "E025",
+      "courseId": "C03",
+      "completedAt": "2026-09-24T04:00:00.000Z"
+    },
+    {
+      "id": "L0079",
+      "sessionId": "S02",
+      "empId": "E026",
+      "courseId": "C01",
+      "completedAt": "2026-09-22T02:00:00.000Z"
+    },
+    {
+      "id": "L0080",
+      "sessionId": "S02",
+      "empId": "E026",
+      "courseId": "C02",
+      "completedAt": "2026-09-23T03:00:00.000Z"
+    },
+    {
+      "id": "L0081",
+      "sessionId": "S02",
+      "empId": "E026",
+      "courseId": "C03",
+      "completedAt": "2026-09-24T04:00:00.000Z"
+    },
+    {
+      "id": "L0082",
+      "sessionId": "S02",
+      "empId": "E028",
+      "courseId": "C01",
+      "completedAt": "2026-09-22T02:00:00.000Z"
+    },
+    {
+      "id": "L0083",
+      "sessionId": "S02",
+      "empId": "E028",
+      "courseId": "C02",
+      "completedAt": "2026-09-23T03:00:00.000Z"
+    },
+    {
+      "id": "L0084",
+      "sessionId": "S02",
+      "empId": "E028",
+      "courseId": "C03",
+      "completedAt": "2026-09-24T04:00:00.000Z"
+    },
+    {
+      "id": "L0085",
+      "sessionId": "S02",
+      "empId": "E029",
+      "courseId": "C01",
+      "completedAt": "2026-09-22T02:00:00.000Z"
+    },
+    {
+      "id": "L0086",
+      "sessionId": "S02",
+      "empId": "E029",
+      "courseId": "C02",
+      "completedAt": "2026-09-23T03:00:00.000Z"
+    },
+    {
+      "id": "L0087",
+      "sessionId": "S02",
+      "empId": "E029",
+      "courseId": "C03",
+      "completedAt": "2026-09-24T04:00:00.000Z"
+    },
+    {
+      "id": "L0088",
+      "sessionId": "S02",
+      "empId": "E023",
+      "courseId": "C01",
+      "completedAt": "2026-09-22T02:00:00.000Z"
+    },
+    {
+      "id": "L0089",
+      "sessionId": "S02",
+      "empId": "E023",
+      "courseId": "C02",
+      "completedAt": "2026-09-23T03:00:00.000Z"
+    },
+    {
+      "id": "L0090",
+      "sessionId": "S02",
+      "empId": "E023",
+      "courseId": "C03",
+      "completedAt": "2026-09-24T04:00:00.000Z"
+    }
+  ],
+  "exams": [
+    {
+      "id": "X0001",
+      "sessionId": "S01",
+      "empId": "E001",
+      "attempt": 1,
+      "questionIds": [
+        "Q02",
+        "Q04",
+        "Q03",
+        "Q05",
+        "Q06",
+        "Q09",
+        "Q07",
+        "Q14",
+        "Q15",
+        "Q12"
+      ],
+      "answers": [
+        1,
+        2,
+        2,
+        1,
+        1,
+        2,
+        1,
+        1,
+        1,
+        0
+      ],
+      "score": 90,
+      "passed": true,
+      "submittedAt": "2026-06-16T10:00:00.000Z"
+    },
+    {
+      "id": "X0002",
+      "sessionId": "S01",
+      "empId": "E002",
+      "attempt": 1,
+      "questionIds": [
+        "Q02",
+        "Q05",
+        "Q03",
+        "Q01",
+        "Q10",
+        "Q07",
+        "Q06",
+        "Q15",
+        "Q12",
+        "Q11"
+      ],
+      "answers": [
+        1,
+        1,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        3,
+        1
+      ],
+      "score": 90,
+      "passed": true,
+      "submittedAt": "2026-06-16T10:00:00.000Z"
+    },
+    {
+      "id": "X0003",
+      "sessionId": "S01",
+      "empId": "E003",
+      "attempt": 1,
+      "questionIds": [
+        "Q01",
+        "Q05",
+        "Q03",
+        "Q04",
+        "Q07",
+        "Q08",
+        "Q06",
+        "Q13",
+        "Q14",
+        "Q11"
+      ],
+      "answers": [
+        1,
+        1,
+        2,
+        2,
+        1,
+        1,
+        1,
+        0,
+        1,
+        1
+      ],
+      "score": 100,
+      "passed": true,
+      "submittedAt": "2026-06-16T10:00:00.000Z"
+    },
+    {
+      "id": "X0004",
+      "sessionId": "S01",
+      "empId": "E004",
+      "attempt": 1,
+      "questionIds": [
+        "Q02",
+        "Q05",
+        "Q04",
+        "Q03",
+        "Q09",
+        "Q07",
+        "Q10",
+        "Q13",
+        "Q11",
+        "Q15"
+      ],
+      "answers": [
+        1,
+        1,
+        0,
+        2,
+        2,
+        1,
+        1,
+        0,
+        1,
+        1
+      ],
+      "score": 90,
+      "passed": true,
+      "submittedAt": "2026-06-16T10:00:00.000Z"
+    },
+    {
+      "id": "X0005",
+      "sessionId": "S01",
+      "empId": "E005",
+      "attempt": 1,
+      "questionIds": [
+        "Q03",
+        "Q02",
+        "Q04",
+        "Q05",
+        "Q09",
+        "Q07",
+        "Q06",
+        "Q15",
+        "Q12",
+        "Q14"
+      ],
+      "answers": [
+        2,
+        1,
+        0,
+        1,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "score": 80,
+      "passed": true,
+      "submittedAt": "2026-06-16T10:00:00.000Z"
+    },
+    {
+      "id": "X0006",
+      "sessionId": "S01",
+      "empId": "E006",
+      "attempt": 1,
+      "questionIds": [
+        "Q05",
+        "Q01",
+        "Q02",
+        "Q04",
+        "Q07",
+        "Q10",
+        "Q09",
+        "Q11",
+        "Q14",
+        "Q15"
+      ],
+      "answers": [
+        1,
+        0,
+        1,
+        2,
+        1,
+        1,
+        2,
+        1,
+        1,
+        1
+      ],
+      "score": 90,
+      "passed": true,
+      "submittedAt": "2026-06-16T10:00:00.000Z"
+    },
+    {
+      "id": "X0007",
+      "sessionId": "S01",
+      "empId": "E007",
+      "attempt": 1,
+      "questionIds": [
+        "Q03",
+        "Q02",
+        "Q05",
+        "Q01",
+        "Q09",
+        "Q06",
+        "Q08",
+        "Q12",
+        "Q15",
+        "Q11"
+      ],
+      "answers": [
+        2,
+        1,
+        1,
+        1,
+        2,
+        3,
+        0,
+        3,
+        1,
+        1
+      ],
+      "score": 80,
+      "passed": true,
+      "submittedAt": "2026-06-16T10:00:00.000Z"
+    },
+    {
+      "id": "X0008",
+      "sessionId": "S01",
+      "empId": "E008",
+      "attempt": 1,
+      "questionIds": [
+        "Q02",
+        "Q05",
+        "Q01",
+        "Q04",
+        "Q06",
+        "Q10",
+        "Q08",
+        "Q14",
+        "Q13",
+        "Q11"
+      ],
+      "answers": [
+        1,
+        1,
+        1,
+        2,
+        1,
+        1,
+        1,
+        1,
+        0,
+        1
+      ],
+      "score": 100,
+      "passed": true,
+      "submittedAt": "2026-06-16T10:00:00.000Z"
+    },
+    {
+      "id": "X0009",
+      "sessionId": "S01",
+      "empId": "E009",
+      "attempt": 1,
+      "questionIds": [
+        "Q02",
+        "Q03",
+        "Q04",
+        "Q01",
+        "Q08",
+        "Q10",
+        "Q07",
+        "Q14",
+        "Q13",
+        "Q15"
+      ],
+      "answers": [
+        0,
+        2,
+        2,
+        2,
+        0,
+        3,
+        1,
+        1,
+        2,
+        2
+      ],
+      "score": 40,
+      "passed": false,
+      "submittedAt": "2026-06-16T10:00:00.000Z"
+    },
+    {
+      "id": "X0010",
+      "sessionId": "S01",
+      "empId": "E009",
+      "attempt": 2,
+      "questionIds": [
+        "Q04",
+        "Q05",
+        "Q01",
+        "Q03",
+        "Q06",
+        "Q09",
+        "Q10",
+        "Q14",
+        "Q12",
+        "Q13"
+      ],
+      "answers": [
+        2,
+        1,
+        1,
+        1,
+        1,
+        2,
+        1,
+        1,
+        3,
+        0
+      ],
+      "score": 90,
+      "passed": true,
+      "submittedAt": "2026-06-22T10:00:00.000Z"
+    },
+    {
+      "id": "X0011",
+      "sessionId": "S01",
+      "empId": "E010",
+      "attempt": 1,
+      "questionIds": [
+        "Q02",
+        "Q05",
+        "Q01",
+        "Q04",
+        "Q08",
+        "Q09",
+        "Q10",
+        "Q14",
+        "Q15",
+        "Q11"
+      ],
+      "answers": [
+        1,
+        1,
+        1,
+        2,
+        3,
+        2,
+        2,
+        1,
+        1,
+        1
+      ],
+      "score": 80,
+      "passed": true,
+      "submittedAt": "2026-06-16T10:00:00.000Z"
+    },
+    {
+      "id": "X0012",
+      "sessionId": "S01",
+      "empId": "E011",
+      "attempt": 1,
+      "questionIds": [
+        "Q03",
+        "Q05",
+        "Q02",
+        "Q04",
+        "Q10",
+        "Q09",
+        "Q08",
+        "Q13",
+        "Q15",
+        "Q14"
+      ],
+      "answers": [
+        2,
+        1,
+        1,
+        2,
+        1,
+        2,
+        1,
+        0,
+        0,
+        1
+      ],
+      "score": 90,
+      "passed": true,
+      "submittedAt": "2026-06-16T10:00:00.000Z"
+    },
+    {
+      "id": "X0013",
+      "sessionId": "S01",
+      "empId": "E012",
+      "attempt": 1,
+      "questionIds": [
+        "Q03",
+        "Q02",
+        "Q04",
+        "Q05",
+        "Q09",
+        "Q07",
+        "Q06",
+        "Q15",
+        "Q11",
+        "Q12"
+      ],
+      "answers": [
+        0,
+        2,
+        2,
+        1,
+        2,
+        1,
+        3,
+        0,
+        2,
+        2
+      ],
+      "score": 40,
+      "passed": false,
+      "submittedAt": "2026-06-16T10:00:00.000Z"
+    },
+    {
+      "id": "X0014",
+      "sessionId": "S01",
+      "empId": "E012",
+      "attempt": 2,
+      "questionIds": [
+        "Q04",
+        "Q02",
+        "Q01",
+        "Q05",
+        "Q07",
+        "Q06",
+        "Q09",
+        "Q12",
+        "Q13",
+        "Q14"
+      ],
+      "answers": [
+        2,
+        1,
+        1,
+        3,
+        2,
+        1,
+        2,
+        3,
+        0,
+        1
+      ],
+      "score": 80,
+      "passed": true,
+      "submittedAt": "2026-06-22T10:00:00.000Z"
+    },
+    {
+      "id": "X0015",
+      "sessionId": "S01",
+      "empId": "E013",
+      "attempt": 1,
+      "questionIds": [
+        "Q02",
+        "Q04",
+        "Q03",
+        "Q01",
+        "Q07",
+        "Q06",
+        "Q08",
+        "Q11",
+        "Q14",
+        "Q12"
+      ],
+      "answers": [
+        1,
+        2,
+        2,
+        1,
+        1,
+        1,
+        0,
+        1,
+        1,
+        3
+      ],
+      "score": 90,
+      "passed": true,
+      "submittedAt": "2026-06-16T10:00:00.000Z"
+    },
+    {
+      "id": "X0016",
+      "sessionId": "S01",
+      "empId": "E014",
+      "attempt": 1,
+      "questionIds": [
+        "Q04",
+        "Q02",
+        "Q03",
+        "Q01",
+        "Q10",
+        "Q06",
+        "Q08",
+        "Q14",
+        "Q11",
+        "Q15"
+      ],
+      "answers": [
+        2,
+        1,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "score": 100,
+      "passed": true,
+      "submittedAt": "2026-06-16T10:00:00.000Z"
+    },
+    {
+      "id": "X0017",
+      "sessionId": "S01",
+      "empId": "E015",
+      "attempt": 1,
+      "questionIds": [
+        "Q02",
+        "Q05",
+        "Q03",
+        "Q01",
+        "Q07",
+        "Q09",
+        "Q06",
+        "Q14",
+        "Q15",
+        "Q12"
+      ],
+      "answers": [
+        1,
+        1,
+        2,
+        1,
+        1,
+        2,
+        1,
+        1,
+        1,
+        3
+      ],
+      "score": 100,
+      "passed": true,
+      "submittedAt": "2026-06-16T10:00:00.000Z"
+    },
+    {
+      "id": "X0018",
+      "sessionId": "S01",
+      "empId": "E024",
+      "attempt": 1,
+      "questionIds": [
+        "Q01",
+        "Q05",
+        "Q04",
+        "Q02",
+        "Q09",
+        "Q10",
+        "Q07",
+        "Q11",
+        "Q13",
+        "Q14"
+      ],
+      "answers": [
+        1,
+        1,
+        2,
+        1,
+        2,
+        1,
+        1,
+        1,
+        0,
+        3
+      ],
+      "score": 90,
+      "passed": true,
+      "submittedAt": "2026-06-16T10:00:00.000Z"
+    },
+    {
+      "id": "X0019",
+      "sessionId": "S01",
+      "empId": "E030",
+      "attempt": 1,
+      "questionIds": [
+        "Q01",
+        "Q05",
+        "Q04",
+        "Q03",
+        "Q06",
+        "Q10",
+        "Q08",
+        "Q12",
+        "Q15",
+        "Q11"
+      ],
+      "answers": [
+        1,
+        1,
+        2,
+        2,
+        1,
+        1,
+        1,
+        3,
+        1,
+        1
+      ],
+      "score": 100,
+      "passed": true,
+      "submittedAt": "2026-06-16T10:00:00.000Z"
+    },
+    {
+      "id": "X0020",
+      "sessionId": "S02",
+      "empId": "E016",
+      "attempt": 1,
+      "questionIds": [
+        "Q01",
+        "Q05",
+        "Q03",
+        "Q04",
+        "Q08",
+        "Q10",
+        "Q07",
+        "Q11",
+        "Q14",
+        "Q12"
+      ],
+      "answers": [
+        1,
+        1,
+        2,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        3
+      ],
+      "score": 100,
+      "passed": true,
+      "submittedAt": "2026-09-24T03:30:00.000Z"
+    },
+    {
+      "id": "X0021",
+      "sessionId": "S02",
+      "empId": "E017",
+      "attempt": 1,
+      "questionIds": [
+        "Q02",
+        "Q04",
+        "Q01",
+        "Q03",
+        "Q09",
+        "Q10",
+        "Q07",
+        "Q14",
+        "Q11",
+        "Q13"
+      ],
+      "answers": [
+        3,
+        2,
+        2,
+        3,
+        2,
+        1,
+        1,
+        1,
+        1,
+        0
+      ],
+      "score": 70,
+      "passed": false,
+      "submittedAt": "2026-09-24T03:30:00.000Z"
+    },
+    {
+      "id": "X0022",
+      "sessionId": "S02",
+      "empId": "E020",
+      "attempt": 1,
+      "questionIds": [
+        "Q05",
+        "Q03",
+        "Q04",
+        "Q02",
+        "Q06",
+        "Q08",
+        "Q10",
+        "Q11",
+        "Q13",
+        "Q12"
+      ],
+      "answers": [
+        1,
+        2,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        3,
+        0
+      ],
+      "score": 80,
+      "passed": true,
+      "submittedAt": "2026-09-24T03:30:00.000Z"
+    },
+    {
+      "id": "X0023",
+      "sessionId": "S02",
+      "empId": "E021",
+      "attempt": 1,
+      "questionIds": [
+        "Q04",
+        "Q05",
+        "Q03",
+        "Q01",
+        "Q08",
+        "Q07",
+        "Q09",
+        "Q11",
+        "Q13",
+        "Q14"
+      ],
+      "answers": [
+        2,
+        1,
+        2,
+        2,
+        1,
+        1,
+        2,
+        3,
+        0,
+        1
+      ],
+      "score": 80,
+      "passed": true,
+      "submittedAt": "2026-09-24T03:30:00.000Z"
+    },
+    {
+      "id": "X0024",
+      "sessionId": "S02",
+      "empId": "E022",
+      "attempt": 1,
+      "questionIds": [
+        "Q05",
+        "Q02",
+        "Q04",
+        "Q01",
+        "Q10",
+        "Q09",
+        "Q08",
+        "Q11",
+        "Q14",
+        "Q13"
+      ],
+      "answers": [
+        1,
+        1,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0
+      ],
+      "score": 90,
+      "passed": true,
+      "submittedAt": "2026-09-24T03:30:00.000Z"
+    },
+    {
+      "id": "X0025",
+      "sessionId": "S02",
+      "empId": "E025",
+      "attempt": 1,
+      "questionIds": [
+        "Q02",
+        "Q05",
+        "Q04",
+        "Q01",
+        "Q08",
+        "Q10",
+        "Q09",
+        "Q11",
+        "Q13",
+        "Q14"
+      ],
+      "answers": [
+        3,
+        1,
+        2,
+        1,
+        1,
+        1,
+        2,
+        1,
+        0,
+        1
+      ],
+      "score": 90,
+      "passed": true,
+      "submittedAt": "2026-09-24T03:30:00.000Z"
+    },
+    {
+      "id": "X0026",
+      "sessionId": "S02",
+      "empId": "E026",
+      "attempt": 1,
+      "questionIds": [
+        "Q02",
+        "Q03",
+        "Q04",
+        "Q01",
+        "Q09",
+        "Q07",
+        "Q06",
+        "Q15",
+        "Q14",
+        "Q13"
+      ],
+      "answers": [
+        1,
+        2,
+        2,
+        1,
+        3,
+        2,
+        1,
+        1,
+        1,
+        0
+      ],
+      "score": 80,
+      "passed": true,
+      "submittedAt": "2026-09-24T03:30:00.000Z"
+    },
+    {
+      "id": "X0027",
+      "sessionId": "S02",
+      "empId": "E028",
+      "attempt": 1,
+      "questionIds": [
+        "Q05",
+        "Q02",
+        "Q04",
+        "Q01",
+        "Q10",
+        "Q09",
+        "Q06",
+        "Q14",
+        "Q15",
+        "Q12"
+      ],
+      "answers": [
+        1,
+        1,
+        2,
+        1,
+        1,
+        2,
+        1,
+        1,
+        1,
+        3
+      ],
+      "score": 100,
+      "passed": true,
+      "submittedAt": "2026-09-24T03:30:00.000Z"
+    },
+    {
+      "id": "X0028",
+      "sessionId": "S02",
+      "empId": "E029",
+      "attempt": 1,
+      "questionIds": [
+        "Q03",
+        "Q01",
+        "Q04",
+        "Q02",
+        "Q07",
+        "Q08",
+        "Q09",
+        "Q15",
+        "Q13",
+        "Q11"
+      ],
+      "answers": [
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        2,
+        1,
+        3,
+        1
+      ],
+      "score": 80,
+      "passed": true,
+      "submittedAt": "2026-09-24T03:30:00.000Z"
+    },
+    {
+      "id": "X0029",
+      "sessionId": "S02",
+      "empId": "E023",
+      "attempt": 1,
+      "questionIds": [
+        "Q01",
+        "Q03",
+        "Q02",
+        "Q04",
+        "Q08",
+        "Q09",
+        "Q10",
+        "Q14",
+        "Q15",
+        "Q13"
+      ],
+      "answers": [
+        1,
+        2,
+        1,
+        3,
+        1,
+        0,
+        2,
+        2,
+        1,
+        0
+      ],
+      "score": 60,
+      "passed": false,
+      "submittedAt": "2026-09-24T03:30:00.000Z"
+    }
+  ],
+  "attendance": [
+    {
+      "id": "A0001",
+      "sessionId": "S01",
+      "empId": "E001",
+      "status": "present",
+      "checkedInAt": "2026-06-18T06:50:00.000Z",
+      "method": "onsite",
+      "by": "A002"
+    },
+    {
+      "id": "A0002",
+      "sessionId": "S01",
+      "empId": "E002",
+      "status": "present",
+      "checkedInAt": "2026-06-18T06:50:00.000Z",
+      "method": "onsite",
+      "by": "A002"
+    },
+    {
+      "id": "A0003",
+      "sessionId": "S01",
+      "empId": "E003",
+      "status": "present",
+      "checkedInAt": "2026-06-18T06:50:00.000Z",
+      "method": "onsite",
+      "by": "A002"
+    },
+    {
+      "id": "A0004",
+      "sessionId": "S01",
+      "empId": "E004",
+      "status": "present",
+      "checkedInAt": "2026-06-18T06:50:00.000Z",
+      "method": "onsite",
+      "by": "A002"
+    },
+    {
+      "id": "A0005",
+      "sessionId": "S01",
+      "empId": "E005",
+      "status": "present",
+      "checkedInAt": "2026-06-18T06:50:00.000Z",
+      "method": "onsite",
+      "by": "A002"
+    },
+    {
+      "id": "A0006",
+      "sessionId": "S01",
+      "empId": "E006",
+      "status": "present",
+      "checkedInAt": "2026-06-18T06:50:00.000Z",
+      "method": "onsite",
+      "by": "A002"
+    },
+    {
+      "id": "A0007",
+      "sessionId": "S01",
+      "empId": "E007",
+      "status": "present",
+      "checkedInAt": "2026-06-18T06:50:00.000Z",
+      "method": "onsite",
+      "by": "A002"
+    },
+    {
+      "id": "A0008",
+      "sessionId": "S01",
+      "empId": "E008",
+      "status": "present",
+      "checkedInAt": "2026-06-18T06:50:00.000Z",
+      "method": "onsite",
+      "by": "A002"
+    },
+    {
+      "id": "A0009",
+      "sessionId": "S01",
+      "empId": "E009",
+      "status": "absent",
+      "checkedInAt": null,
+      "method": null,
+      "by": null
+    },
+    {
+      "id": "A0010",
+      "sessionId": "S01",
+      "empId": "E009",
+      "status": "present",
+      "checkedInAt": "2026-06-23T08:55:00.000Z",
+      "method": "onsite",
+      "by": "A002",
+      "makeup": true
+    },
+    {
+      "id": "A0011",
+      "sessionId": "S01",
+      "empId": "E010",
+      "status": "present",
+      "checkedInAt": "2026-06-18T06:50:00.000Z",
+      "method": "onsite",
+      "by": "A002"
+    },
+    {
+      "id": "A0012",
+      "sessionId": "S01",
+      "empId": "E011",
+      "status": "present",
+      "checkedInAt": "2026-06-18T06:50:00.000Z",
+      "method": "onsite",
+      "by": "A002"
+    },
+    {
+      "id": "A0013",
+      "sessionId": "S01",
+      "empId": "E012",
+      "status": "absent",
+      "checkedInAt": null,
+      "method": null,
+      "by": null
+    },
+    {
+      "id": "A0014",
+      "sessionId": "S01",
+      "empId": "E012",
+      "status": "present",
+      "checkedInAt": "2026-06-23T08:55:00.000Z",
+      "method": "onsite",
+      "by": "A002",
+      "makeup": true
+    },
+    {
+      "id": "A0015",
+      "sessionId": "S01",
+      "empId": "E013",
+      "status": "present",
+      "checkedInAt": "2026-06-18T06:50:00.000Z",
+      "method": "onsite",
+      "by": "A002"
+    },
+    {
+      "id": "A0016",
+      "sessionId": "S01",
+      "empId": "E014",
+      "status": "present",
+      "checkedInAt": "2026-06-18T06:50:00.000Z",
+      "method": "onsite",
+      "by": "A002"
+    },
+    {
+      "id": "A0017",
+      "sessionId": "S01",
+      "empId": "E015",
+      "status": "present",
+      "checkedInAt": "2026-06-18T06:50:00.000Z",
+      "method": "onsite",
+      "by": "A002"
+    },
+    {
+      "id": "A0018",
+      "sessionId": "S01",
+      "empId": "E024",
+      "status": "present",
+      "checkedInAt": "2026-06-18T06:50:00.000Z",
+      "method": "onsite",
+      "by": "A002"
+    },
+    {
+      "id": "A0019",
+      "sessionId": "S01",
+      "empId": "E030",
+      "status": "present",
+      "checkedInAt": "2026-06-18T06:50:00.000Z",
+      "method": "onsite",
+      "by": "A002"
+    },
+    {
+      "id": "A0020",
+      "sessionId": "S02",
+      "empId": "E016",
+      "status": "present",
+      "checkedInAt": "2026-09-25T02:25:00.000Z",
+      "method": "onsite",
+      "by": "A002"
+    },
+    {
+      "id": "A0021",
+      "sessionId": "S02",
+      "empId": "E017",
+      "status": "present",
+      "checkedInAt": "2026-09-25T02:25:00.000Z",
+      "method": "onsite",
+      "by": "A002"
+    },
+    {
+      "id": "A0022",
+      "sessionId": "S02",
+      "empId": "E018",
+      "status": "present",
+      "checkedInAt": "2026-09-25T02:25:00.000Z",
+      "method": "onsite",
+      "by": "A002"
+    },
+    {
+      "id": "A0023",
+      "sessionId": "S02",
+      "empId": "E020",
+      "status": "present",
+      "checkedInAt": "2026-09-25T02:25:00.000Z",
+      "method": "onsite",
+      "by": "A002"
+    },
+    {
+      "id": "A0024",
+      "sessionId": "S02",
+      "empId": "E022",
+      "status": "present",
+      "checkedInAt": "2026-09-25T02:25:00.000Z",
+      "method": "onsite",
+      "by": "A002"
+    },
+    {
+      "id": "A0025",
+      "sessionId": "S02",
+      "empId": "E025",
+      "status": "present",
+      "checkedInAt": "2026-09-25T02:25:00.000Z",
+      "method": "onsite",
+      "by": "A002"
+    },
+    {
+      "id": "A0026",
+      "sessionId": "S02",
+      "empId": "E026",
+      "status": "present",
+      "checkedInAt": "2026-09-25T02:25:00.000Z",
+      "method": "onsite",
+      "by": "A002"
+    },
+    {
+      "id": "A0027",
+      "sessionId": "S02",
+      "empId": "E028",
+      "status": "present",
+      "checkedInAt": "2026-09-25T02:25:00.000Z",
+      "method": "onsite",
+      "by": "A002"
+    },
+    {
+      "id": "A0028",
+      "sessionId": "S02",
+      "empId": "E029",
+      "status": "present",
+      "checkedInAt": "2026-09-25T02:25:00.000Z",
+      "method": "onsite",
+      "by": "A002"
+    }
+  ],
+  "retrain": [
+    {
+      "id": "R0001",
+      "empId": "E009",
+      "sourceSessionId": "S01",
+      "reasons": [
+        "exam_fail",
+        "drill_absent"
+      ],
+      "status": "resolved",
+      "createdAt": "2026-06-18T08:00:00.000Z",
+      "resolvedAt": "2026-06-23T09:00:00.000Z",
+      "resolveType": "retake_and_makeup",
+      "resolveSessionId": "S01"
+    },
+    {
+      "id": "R0002",
+      "empId": "E012",
+      "sourceSessionId": "S01",
+      "reasons": [
+        "exam_fail",
+        "drill_absent"
+      ],
+      "status": "resolved",
+      "createdAt": "2026-06-18T08:00:00.000Z",
+      "resolvedAt": "2026-06-23T09:00:00.000Z",
+      "resolveType": "retake_and_makeup",
+      "resolveSessionId": "S01"
+    },
+    {
+      "id": "R0003",
+      "empId": "E017",
+      "sourceSessionId": "S02",
+      "reasons": [
+        "exam_fail"
+      ],
+      "status": "pending",
+      "createdAt": "2026-09-25T03:00:00.000Z",
+      "resolvedAt": null,
+      "resolveType": null,
+      "resolveSessionId": null
+    },
+    {
+      "id": "R0004",
+      "empId": "E023",
+      "sourceSessionId": "S02",
+      "reasons": [
+        "exam_fail",
+        "drill_absent"
+      ],
+      "status": "pending",
+      "createdAt": "2026-09-25T03:00:00.000Z",
+      "resolvedAt": null,
+      "resolveType": null,
+      "resolveSessionId": null
+    }
+  ]
+}

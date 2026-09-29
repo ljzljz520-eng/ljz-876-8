@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>消防安全演练考试台</title>
+<link rel="stylesheet" href="https://unpkg.com/element-plus@2.7.6/dist/index.css">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: "PingFang SC", "Microsoft YaHei", sans-serif; min-height: 100vh;
+    background: linear-gradient(135deg, #7f1d1d 0%, #b91c1c 45%, #c2410c 100%); }
+  .hero { max-width: 1080px; margin: 0 auto; padding: 72px 24px 32px; color: #fff; text-align: center; }
+  .hero .badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,.14);
+    border: 1px solid rgba(255,255,255,.28); padding: 6px 18px; border-radius: 999px; font-size: 14px; margin-bottom: 22px; }
+  .hero h1 { font-size: 42px; letter-spacing: 2px; margin-bottom: 14px; text-shadow: 0 2px 12px rgba(0,0,0,.25); }
+  .hero p { font-size: 17px; opacity: .92; line-height: 1.8; }
+  .flow { display: flex; justify-content: center; align-items: center; gap: 10px; margin: 26px 0 6px; flex-wrap: wrap; }
+  .flow .step { background: rgba(255,255,255,.13); border: 1px solid rgba(255,255,255,.25); border-radius: 10px;
+    padding: 10px 16px; font-size: 14px; white-space: nowrap; }
+  .flow .arrow { font-size: 18px; opacity: .8; }
+  .cards { max-width: 960px; margin: 34px auto 0; display: grid; grid-template-columns: 1fr 1fr; gap: 28px; padding: 0 24px 60px; }
+  .card { background: #fff; border-radius: 18px; padding: 38px 32px; box-shadow: 0 20px 50px rgba(0,0,0,.25);
+    transition: transform .2s, box-shadow .2s; cursor: pointer; }
+  .card:hover { transform: translateY(-6px); box-shadow: 0 28px 60px rgba(0,0,0,.32); }
+  .card .icon { width: 64px; height: 64px; border-radius: 16px; display: flex; align-items: center; justify-content: center;
+    font-size: 32px; margin-bottom: 20px; }
+  .card.emp .icon { background: #fef3c7; }
+  .card.adm .icon { background: #fee2e2; }
+  .card h2 { font-size: 24px; color: #1f2937; margin-bottom: 10px; }
+  .card p { color: #6b7280; line-height: 1.8; font-size: 14.5px; margin-bottom: 22px; }
+  .card .go { display: inline-block; padding: 10px 26px; border-radius: 10px; color: #fff; font-weight: 600; }
+  .card.emp .go { background: linear-gradient(135deg,#d97706,#b45309); }
+  .card.adm .go { background: linear-gradient(135deg,#dc2626,#991b1b); }
+  .tips { max-width: 960px; margin: 0 auto 48px; padding: 0 24px; color: rgba(255,255,255,.85); font-size: 13px; line-height: 2; }
+  .tips code { background: rgba(0,0,0,.25); padding: 2px 8px; border-radius: 6px; }
+  @media (max-width: 720px) { .cards { grid-template-columns: 1fr; } .hero h1 { font-size: 30px; } }
+</style>
+</head>
+<body>
+  <div class="hero">
+    <div class="badge">🛡️ 企业安全生产 · 消防应急能力闭环管理</div>
+    <h1>消防安全演练考试台</h1>
+    <p>灭火器使用 · 疏散路线 · 报警流程 —— 学完即测、线下签到、未过自动复训</p>
+    <div class="flow">
+      <span class="step">① 在线学习三门课</span><span class="arrow">→</span>
+      <span class="step">② 线上测验 80 分合格</span><span class="arrow">→</span>
+      <span class="step">③ 演练现场签到</span><span class="arrow">→</span>
+      <span class="step">④ 未通过自动进复训</span>
+    </div>
+  </div>
+  <div class="cards">
+    <div class="card emp" onclick="location.href='employee.html'">
+      <div class="icon">🧯</div>
+      <h2>员工入口</h2>
+      <p>学习消防安全课程、参加线上测验、查看线下演练签到状态与个人合格进度；未通过科目可在复训批次补考。</p>
+      <span class="go">进入学习考试 →</span>
+    </div>
+    <div class="card adm" onclick="location.href='admin.html'">
+      <div class="icon">📊</div>
+      <h2>管理端 / 签到台</h2>
+      <p>按楼层、部门、岗位查看完成情况与合格率；现场扫码/工号签到；管理自动生成的复训名单并跟踪闭环。</p>
+      <span class="go">进入管理后台 →</span>
+    </div>
+  </div>
+  <div class="tips">
+    演示账号：员工 <code>E001</code> / <code>E017</code>（未通过）/ <code>E019</code>（未学完），密码 <code>123456</code>；
+    管理员 <code>admin / admin123</code>；签到员 <code>guard / guard123</code>
+  </div>
+</body>
+</html>

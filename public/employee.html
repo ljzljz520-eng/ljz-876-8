@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>员工端 · 消防安全演练考试台</title>
+<link rel="stylesheet" href="https://unpkg.com/element-plus@2.7.6/dist/index.css">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:"PingFang SC","Microsoft YaHei",sans-serif; background:#f5f6f8; color:#1f2937; }
+  .topbar { background:linear-gradient(90deg,#991b1b,#b91c1c); color:#fff; padding:0 28px; height:60px;
+    display:flex; align-items:center; justify-content:space-between; box-shadow:0 2px 10px rgba(0,0,0,.15); }
+  .topbar .brand { font-size:18px; font-weight:700; letter-spacing:1px; }
+  .topbar .who { font-size:14px; opacity:.92; display:flex; align-items:center; gap:14px; }
+  .wrap { max-width:1040px; margin:26px auto; padding:0 20px 60px; }
+  .login-box { max-width:420px; margin:80px auto; background:#fff; border-radius:16px; padding:40px 36px; box-shadow:0 12px 40px rgba(0,0,0,.1); }
+  .login-box h2 { text-align:center; margin-bottom:6px; color:#991b1b; }
+  .login-box .sub { text-align:center; color:#9ca3af; font-size:13px; margin-bottom:28px; }
+  .card { background:#fff; border-radius:14px; padding:22px 26px; margin-bottom:20px; box-shadow:0 2px 10px rgba(0,0,0,.05); }
+  .card h3 { font-size:16px; margin-bottom:16px; display:flex; align-items:center; gap:8px; }
+  .session-item { border:1px solid #eef0f3; border-radius:12px; padding:18px 22px; margin-bottom:14px; transition:.2s; }
+  .session-item:hover { border-color:#fca5a5; box-shadow:0 6px 18px rgba(185,28,28,.08); }
+  .si-head { display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:10px; }
+  .si-title { font-size:16px; font-weight:600; }
+  .si-meta { color:#6b7280; font-size:13px; margin-top:6px; line-height:1.8; }
+  .prog-row { display:flex; gap:10px; flex-wrap:wrap; margin-top:14px; }
+  .prog-chip { flex:1; min-width:130px; border-radius:10px; padding:10px 14px; font-size:13px; background:#f9fafb; border:1px solid #f0f0f0; }
+  .prog-chip .lab { color:#6b7280; font-size:12px; }
+  .prog-chip .val { font-weight:700; margin-top:3px; font-size:15px; }
+  .ok { color:#15803d; } .no { color:#b91c1c; } .wait { color:#a16207; }
+  .course-box { border:1px solid #e5e7eb; border-radius:12px; margin-bottom:16px; overflow:hidden; }
+  .course-head { padding:16px 20px; display:flex; justify-content:space-between; align-items:center; background:#fafafa; cursor:pointer; }
+  .course-head .t { font-weight:600; }
+  .course-body { padding:18px 22px; border-top:1px solid #eee; line-height:2; font-size:14.5px; color:#374151; }
+  .course-body .sec { margin-bottom:16px; }
+  .course-body .sec h4 { color:#991b1b; margin-bottom:6px; }
+  .course-body .sec p { white-space:pre-line; }
+  .exam-q { border:1px solid #eee; border-radius:10px; padding:16px 18px; margin-bottom:14px; }
+  .exam-q .stem { font-weight:600; margin-bottom:12px; line-height:1.7; }
+  .result-banner { border-radius:12px; padding:26px; text-align:center; margin-bottom:20px; }
+  .result-banner.pass { background:linear-gradient(135deg,#dcfce7,#bbf7d0); }
+  .result-banner.fail { background:linear-gradient(135deg,#fee2e2,#fecaca); }
+  .result-banner .score { font-size:46px; font-weight:800; }
+  .detail-q { border-bottom:1px dashed #e5e7eb; padding:14px 0; font-size:14px; line-height:1.9; }
+  .back-link { color:#fff; opacity:.85; cursor:pointer; font-size:13px; }
+  .back-link:hover { opacity:1; }
+  .step-bar { display:flex; gap:0; margin-bottom:22px; }
+  .step-bar .sb { flex:1; text-align:center; font-size:13px; padding:10px; background:#f3f4f6; color:#6b7280; position:relative; }
+  .step-bar .sb.active { background:#b91c1c; color:#fff; font-weight:600; }
+  .step-bar .sb.done { background:#16a34a; color:#fff; }
+</style>
+</head>
+<body>
+<div id="app"></div>
+
+<script src="https://unpkg.com/vue@3.4.31/dist/vue.global.prod.js"></script>
+<script src="https://unpkg.com/element-plus@2.7.6/dist/index.full.min.js"></script>
+<script src="js/api.js"></script>
+<script>
+const { createApp, ref, reactive, computed, onMounted } = Vue;
+const { ElMessage, ElMessageBox } = ElementPlus;
+
+const App = {
+  setup() {
+    const view = ref('login');      // login | sessions | detail(learn/exam)
+    const me = ref(null);
+    const sessions = ref([]);
+    const meta = ref({ courses: [] });
+    const cur = reactive({ sessionId: '', tab: 'learn', session: null, progress: null });
+    const exam = reactive({ paper: null, answers: {}, submitting: false, result: null });
+
+    onMounted(async () => {
+      meta.value = await api.get('/api/meta');
+      if (api.token()) { try { await loadMe(); } catch { api.setToken(''); } }
+    });
+
+    async function loadMe() {
+      const data = await api.get('/api/me');
+      me.value = data.emp; sessions.value = data.sessions; view.value = 'sessions';
+    }
+    const loginForm = reactive({ username: '', password: '' });
+    async function login() {
+      if (!loginForm.username || !loginForm.password) return ElMessage.warning('请输入工号和密码');
+      try {
+        const r = await api.post('/api/auth/login', { role: 'emp', username: loginForm.username.trim(), password: loginForm.password });
+        api.setToken(r.token); await loadMe(); ElMessage.success('欢迎回来，' + r.emp.name);
+      } catch (e) { ElMessage.error(e.message); }
+    }
+    async function logout() {
+      await api.post('/api/auth/logout').catch(()=>{}); api.setToken(''); me.value = null; view.value = 'login';
+    }
+
+    async function openSession(s) {
+      const d = await api.get('/api/me/progress?sessionId=' + s.id);
+      cur.sessionId = s.id; cur.session = d.session; cur.progress = d.progress;
+      cur.tab = 'learn'; exam.paper = null; exam.result = null; exam.answers = {};
+      view.value = 'detail';
+    }
+    function backList() { view.value = 'sessions'; loadMe(); }
+
+    async function finishLearn(courseId) {
+      const r = await api.post('/api/me/learn', { sessionId: cur.sessionId, courseId });
+      cur.progress.courseStatus = r.courseStatus; cur.progress.learningDone = r.learningDone;
+      ElMessage.success('学习完成，已记录学时');
+      const d = await api.get('/api/me/progress?sessionId=' + cur.sessionId); cur.progress = d.progress;
+    }
+
+    async function startExam() {
+      if (!cur.progress.learningDone) return ElMessage.warning('请先完成全部三门课程学习');
+      exam.paper = await api.get('/api/me/exam/paper?sessionId=' + cur.sessionId);
+      exam.answers = {}; exam.result = null; cur.tab = 'exam';
+    }
+
+    async function submitExam() {
+      const answered = Object.keys(exam.answers).length;
+      if (answered < exam.paper.questions.length) {
+        try { await ElMessageBox.confirm(`还有 ${exam.paper.questions.length - answered} 题未作答，确认交卷？`, '提示', { type: 'warning' }); }
+        catch { return; }
+      }
+      exam.submitting = true;
+      try {
+        const payload = { sessionId: cur.sessionId, answers: exam.paper.questions.map(q => ({ questionId: q.id, optionIndex: exam.answers[q.id] ?? -1 })) };
+        exam.result = await api.post('/api/me/exam/submit', payload);
+        cur.tab = 'result';
+        const d = await api.get('/api/me/progress?sessionId=' + cur.sessionId); cur.progress = d.progress;
+      } catch (e) { ElMessage.error(e.message); } finally { exam.submitting = false; }
+    }
+
+    function tagType(s) { return s.status === 'closed' ? 'info' : s.status === 'ongoing' ? 'danger' : 'warning'; }
+    function statusText(s) { return { closed: '已结束', ongoing: '进行中', planned: '待开始' }[s.status]; }
+
+    return { view, me, sessions, meta, loginForm, login, logout, cur, exam, openSession, backList,
+      finishLearn, startExam, submitExam, tagType, statusText };
+  },
+  template: `
+  <!-- 登录 -->
+  <div v-if="view==='login'" class="login-box">
+    <h2>🧯 消防安全演练考试台</h2>
+    <div class="sub">员工登录 · 工号 + 密码</div>
+    <el-form label-position="top">
+      <el-form-item label="工号"><el-input v-model="loginForm.username" placeholder="如 E001 / E017" size="large" @keyup.enter="login"></el-input></el-form-item>
+      <el-form-item label="密码"><el-input v-model="loginForm.password" type="password" show-password placeholder="初始密码 123456" size="large" @keyup.enter="login"></el-input></el-form-item>
+      <el-button type="danger" size="large" style="width:100%" @click="login">登 录</el-button>
+    </el-form>
+    <div style="text-align:center;margin-top:16px"><el-link href="index.html" type="info">← 返回门户</el-link> ｜ <el-link href="admin.html" type="info">管理端入口</el-link></div>
+  </div>
+
+  <template v-else>
+  <div class="topbar">
+    <div class="brand">🧯 消防安全演练考试台 · 员工端</div>
+    <div class="who">
+      <span v-if="me">{{me.name}}（{{me.empNo}}）· {{me.deptName}} · {{me.floor}}层 · {{me.position}}</span>
+      <el-button size="small" round @click="logout">退出</el-button>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <!-- 批次列表 -->
+    <div v-if="view==='sessions'">
+      <div class="card">
+        <h3>📋 我的演练批次</h3>
+        <div v-if="!sessions.length" style="color:#9ca3af;text-align:center;padding:30px">暂无按你所在楼层分配的演练批次</div>
+        <div class="session-item" v-for="s in sessions" :key="s.id">
+          <div class="si-head">
+            <div>
+              <div class="si-title">{{s.name}}
+                <el-tag :type="tagType(s)" size="small" style="margin-left:8px">{{statusText(s)}}</el-tag>
+                <el-tag v-if="s.qualified" type="success" size="small" style="margin-left:6px">✅ 已合格</el-tag>
+                <el-tag v-else-if="s.retrainPending" type="danger" size="small" style="margin-left:6px">⚠ 复训名单</el-tag>
+              </div>
+              <div class="si-meta">🕒 {{s.drillDate}} {{s.drillTime}}　📍 {{s.location}}　合格线 {{s.passScore}} 分</div>
+            </div>
+            <el-button type="danger" plain @click="openSession(s)">进入</el-button>
+          </div>
+          <div class="prog-row">
+            <div class="prog-chip"><div class="lab">课程学习</div><div class="val" :class="s.learningDone?'ok':'wait'">{{s.learningDone?'3/3 已完成':'进行中'}}</div></div>
+            <div class="prog-chip"><div class="lab">线上测验</div>
+              <div class="val" :class="s.examPassed?'ok':s.examTaken?'no':'wait'">{{s.examTaken? s.examScore+'分 '+(s.examPassed?'通过':'未过'):'未考'}}</div></div>
+            <div class="prog-chip"><div class="lab">线下签到</div>
+              <div class="val" :class="s.attended?'ok':s.status==='planned'?'wait':'no'">{{s.attended?'已签到':s.status==='planned'?'演练未开始':(s.absent?'缺训/未签':'未签到')}}</div></div>
+            <div class="prog-chip"><div class="lab">综合状态</div><div class="val" :class="s.qualified?'ok':'no'">{{s.qualified?'合格 🎉':'未达标'}}</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 批次详情 -->
+    <div v-if="view==='detail'">
+      <span class="back-link" style="color:#991b1b" @click="backList">← 返回批次列表</span>
+      <div class="card" style="margin-top:10px">
+        <h3>{{cur.session.name}}
+          <el-tag size="small" :type="tagType(cur.session)">{{statusText(cur.session)}}</el-tag>
+        </h3>
+        <div style="color:#6b7280;font-size:13px">🕒 {{cur.session.drillDate}} {{cur.session.drillTime}}　📍 {{cur.session.location}}</div>
+        <el-alert v-if="cur.progress.qualified" type="success" :closable="false" show-icon style="margin-top:14px"
+          title="恭喜！你已完成全部学习、测验通过并完成现场签到，本次演练考核合格。" />
+        <el-alert v-else-if="cur.session.status!=='planned'" type="warning" :closable="false" show-icon style="margin-top:14px"
+          :title="'当前未达标：' + [
+            cur.progress.learningDone?'':'课程未学完',
+            cur.progress.latestExam && !cur.progress.examPassed?'测验未通过（已自动进入复训名单）':'',
+            !cur.progress.attended?'线下演练未签到':''
+          ].filter(Boolean).join('；') + '。请按提示完成补考/补训。'" />
+      </div>
+
+      <el-tabs v-model="cur.tab" class="card">
+        <!-- 学习 -->
+        <el-tab-pane name="learn">
+          <template #label><b>① 课程学习</b></template>
+          <div class="course-box" v-for="c in meta.courses" :key="c.id">
+            <el-collapse v-model="c._open">
+              <el-collapse-item :name="c.id">
+                <template #title>
+                  <span style="display:flex;align-items:center;gap:10px;width:100%">
+                    <span style="font-size:20px">{{c.key==='extinguisher'?'🧯':c.key==='evacuation'?'🚪':'📞'}}</span>
+                    <b>{{c.title}}</b>
+                    <el-tag size="small" type="info" effect="plain">约{{c.durationMin}}分钟</el-tag>
+                    <el-tag v-if="cur.progress.courseStatus.find(x=>x.courseId===c.id)?.completed" type="success" size="small">✓ 已完成</el-tag>
+                  </span>
+                </template>
+                <div style="padding:4px 8px">
+                  <p style="color:#6b7280;font-size:13.5px;margin-bottom:12px">{{c.summary}}</p>
+                  <div class="sec" v-for="(s,i) in c.sections" :key="i">
+                    <h4>{{s.heading}}</h4><p>{{s.body}}</p>
+                  </div>
+                  <el-button type="danger" plain style="margin-top:8px"
+                    :disabled="cur.progress.courseStatus.find(x=>x.courseId===c.id)?.completed"
+                    @click="finishLearn(c.id)">
+                    {{cur.progress.courseStatus.find(x=>x.courseId===c.id)?.completed ? '已完成学习' : '我已学完，记录学时'}}
+                  </el-button>
+                </div>
+              </el-collapse-item>
+            </el-collapse>
+          </div>
+          <el-alert title="三门课程全部完成后才能进入线上测验" type="info" :closable="false" show-icon style="margin:6px 0 14px"/>
+          <el-button type="danger" size="large" :disabled="!cur.progress.learningDone" @click="startExam">
+            {{cur.progress.learningDone ? '进入线上测验 →' : '完成全部课程后解锁测验'}}
+          </el-button>
+        </el-tab-pane>
+
+        <!-- 测验 -->
+        <el-tab-pane name="exam" :disabled="!exam.paper">
+          <template #label><b>② 线上测验</b></template>
+          <div v-if="!exam.paper && !exam.result">
+            <el-empty description="尚未开始测验">
+              <el-button type="danger" :disabled="!cur.progress.learningDone" @click="startExam">开始答题（10题 · 80分合格）</el-button>
+            </el-empty>
+          </div>
+          <template v-if="exam.paper && cur.tab==='exam'">
+            <el-alert :title="'共 '+exam.paper.questions.length+' 题，每题10分，满分100分，'+cur.session.passScore+'分合格；交卷后立即判分，未通过将自动进入复训名单。'"
+              type="info" :closable="false" show-icon style="margin-bottom:16px"/>
+            <div class="exam-q" v-for="(q,i) in exam.paper.questions" :key="q.id">
+              <div class="stem">{{i+1}}. <el-tag size="small" effect="plain" style="margin-right:6px">{{meta.courses.find(c=>c.id===q.courseId)?.title}}</el-tag>{{q.stem}}</div>
+              <el-radio-group v-model="exam.answers[q.id]">
+                <el-radio v-for="(op,j) in q.options" :key="j" :value="j" style="display:block;margin:8px 0;line-height:1.6">{{String.fromCharCode(65+j)}}. {{op}}</el-radio>
+              </el-radio-group>
+            </div>
+            <el-button type="danger" size="large" :loading="exam.submitting" @click="submitExam">交 卷</el-button>
+          </template>
+        </el-tab-pane>
+
+        <!-- 成绩 -->
+        <el-tab-pane name="result">
+          <template #label><b>③ 成绩与签到</b></template>
+          <div v-if="!cur.progress.latestExam && !exam.result">
+            <el-empty description="暂无考试记录" />
+          </div>
+          <div v-else-if="!exam.result" class="result-banner" :class="cur.progress.examPassed?'pass':'fail'">
+            <div style="font-size:15px">{{cur.progress.examPassed?'🎉 已通过线上测验':'😔 未达到合格线，处于复训状态，请补考'}}</div>
+            <div class="score">{{cur.progress.examScore}}<span style="font-size:20px">分</span></div>
+            <div>已作答 {{cur.progress.examAttempts}} 次 · 合格线 {{cur.session.passScore}} 分
+              · 最近交卷 {{cur.progress.latestExam ? new Date(cur.progress.latestExam.submittedAt).toLocaleString('zh-CN') : ''}}</div>
+            <el-button v-if="!cur.progress.examPassed" type="danger" size="large" style="margin-top:16px" @click="startExam">参加补考</el-button>
+          </div>
+          <template v-if="exam.result">
+            <div class="result-banner" :class="exam.result.passed?'pass':'fail'">
+              <div style="font-size:15px">{{exam.result.passed?'🎉 恭喜，测验通过':'😔 未达到合格线，已自动进入复训名单'}}</div>
+              <div class="score">{{exam.result.score}}<span style="font-size:20px">分</span></div>
+              <div>答对 {{exam.result.correct}} / {{exam.result.total}} 题 · 第 {{exam.result.attempt}} 次作答 · 合格线 {{exam.result.passScore}} 分</div>
+            </div>
+            <el-collapse accordion>
+              <el-collapse-item v-for="(d,i) in exam.result.details" :key="i" :name="i">
+                <template #title>
+                  <span style="display:flex;gap:8px;align-items:center">
+                    <el-tag :type="d.ok?'success':'danger'" size="small">{{d.ok?'✓':'✗'}}</span>
+                    <span>{{i+1}}. {{d.stem}}</span>
+                  </span>
+                </template>
+                <div style="padding:4px 10px">
+                  <p v-for="(op,j) in d.options" :key="j"
+                    :style="{color: j===d.correctAnswer?'#15803d':(j===d.yourAnswer?'#b91c1c':'inherit'), fontWeight: j===d.correctAnswer?700:400}">
+                    {{String.fromCharCode(65+j)}}. {{op}}
+                    <span v-if="j===d.correctAnswer">（正确答案）</span>
+                    <span v-else-if="j===d.yourAnswer">（你的选择）</span>
+                  </p>
+                  <el-alert :title="'解析：'+d.analysis" type="info" :closable="false" style="margin-top:8px"/>
+                </div>
+              </el-collapse-item>
+            </el-collapse>
+            <div style="margin-top:18px">
+              <el-button v-if="!exam.result.passed" type="danger" @click="startExam">重新测验（补考）</el-button>
+              <el-button v-else @click="cur.tab='learn'">查看课程</el-button>
+            </div>
+          </template>
+          <el-divider>线下演练签到</el-divider>
+          <el-result v-if="cur.progress.attended" icon="success" title="已完成现场签到" sub-title="签到由现场签到台（安保/值班员）核验工号后记录">
+          </el-result>
+          <el-result v-else-if="cur.session.status==='planned'" icon="warning" title="演练尚未开始" :sub-title="'演练时间：'+cur.session.drillDate+' '+cur.session.drillTime+'，地点：'+cur.session.location">
+          </el-result>
+          <el-result v-else icon="error" title="尚未签到 / 缺训" sub-title="演练当日请到现场签到台凭工号签到；缺训将被自动纳入复训名单">
+          </el-result>
+        </el-tab-pane>
+      </el-tabs>
+    </div>
+  </div>
+  </template>
+  `
+};
+const app = createApp(App);
+app.use(ElementPlus);
+app.mount('#app');
+</script>
+</body>
+</html>
