@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>线下演练签到 · 消防安全演练考试台</title>
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<header class="topbar">
+  <h1><span class="flame">🏢</span> 线下应急疏散演练 · 现场签到</h1>
+  <nav>
+    <a href="/">员工学习测验</a>
+    <a href="/checkin.html" class="active">现场签到</a>
+    <a href="/admin.html">管理看板</a>
+  </nav>
+</header>
+<div class="wrap">
+  <div class="login-box card">
+    <h2>✅ 演练到场签到</h2>
+    <p class="muted" style="margin-bottom:14px">到达集合点清点处，输入本人工号与现场安全员公布的签到码。<br>演示场次签到码：<b>119</b></p>
+    <div style="margin-bottom:12px">
+      <label class="muted">工号</label>
+      <input id="empNo" placeholder="如 E1001" style="width:100%;margin-top:4px" onkeydown="if(event.key==='Enter')doCheckin()">
+    </div>
+    <div style="margin-bottom:16px">
+      <label class="muted">签到码</label>
+      <input id="code" placeholder="现场公布的签到码" style="width:100%;margin-top:4px" onkeydown="if(event.key==='Enter')doCheckin()">
+    </div>
+    <button style="width:100%" onclick="doCheckin()">确认签到</button>
+    <div id="result" style="margin-top:16px"></div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+const $ = id => document.getElementById(id);
+function toast(m, ok=true){const t=$('toast');t.textContent=m;t.className='toast show '+(ok?'ok':'err');setTimeout(()=>t.className='toast',2400);}
+async function doCheckin(){
+  const emp_no = $('empNo').value.trim(), code = $('code').value.trim();
+  if(!emp_no||!code) return toast('请填写工号和签到码',false);
+  const r = await fetch('/api/checkin',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({emp_no,code})});
+  const d = await r.json();
+  if(!r.ok){$('result').innerHTML='<div class="notice">'+(d.error||'签到失败')+'</div>';return;}
+  const allDone = d.status.status==='completed';
+  $('result').innerHTML = `
+    <div style="text-align:center;padding:10px">
+      <div style="font-size:40px">✅</div>
+      <h3 style="margin:8px 0">签到成功</h3>
+      <div class="muted">${d.session_name}</div>
+      <div style="margin-top:14px">
+        ${allDone?'<span class="badge green">全部环节已完成</span>':'<span class="badge amber">签到成功，还有学习/测验环节待完成</span>'}
+      </div>
+      <div style="margin-top:14px"><a href="/" class="sm"><button class="ghost sm">返回学习页</button></a></div>
+    </div>`;
+  toast('签到成功');
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>管理看板 · 消防安全演练考试台</title>
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<header class="topbar">
+  <h1><span class="flame">📊</span> 消防安全演练 · 管理看板</h1>
+  <nav>
+    <a href="/">员工学习测验</a>
+    <a href="/checkin.html">现场签到</a>
+    <a href="/admin.html" class="active">管理看板</a>
+  </nav>
+</header>
+
+<div class="wrap wide">
+  <section class="card">
+    <div class="row" style="justify-content:space-between">
+      <h2 style="margin:0" id="sessionTitle">演练完成情况</h2>
+      <div class="row">
+        <button class="ghost sm" onclick="load()">🔄 刷新数据</button>
+        <button class="ghost sm" onclick="exportCSV()">⬇ 导出CSV</button>
+      </div>
+    </div>
+
+    <div class="filters" style="margin-top:14px">
+      <div><label>楼层</label><select id="fFloor"><option value="">全部楼层</option></select></div>
+      <div><label>部门</label><select id="fDept"><option value="">全部部门</option></select></div>
+      <div><label>岗位</label><select id="fPos"><option value="">全部岗位</option></select></div>
+      <button onclick="applyFilter()">查询</button>
+      <button class="ghost" onclick="resetFilter()">重置</button>
+    </div>
+  </section>
+
+  <div class="kpis" id="kpis"></div>
+
+  <section class="card">
+    <div class="tabs">
+      <button class="active" data-tab="employees" onclick="switchTab('employees')">人员明细</button>
+      <button data-tab="floor" onclick="switchTab('floor')">按楼层</button>
+      <button data-tab="department" onclick="switchTab('department')">按部门</button>
+      <button data-tab="position" onclick="switchTab('position')">按岗位</button>
+      <button data-tab="retraining" onclick="switchTab('retraining')">复训名单 <span id="rtCount" class="badge red" style="margin-left:4px">0</span></button>
+    </div>
+    <div id="tabContent"></div>
+  </section>
+</div>
+<div class="toast" id="toast"></div>
+<script src="/admin.js"></script>
+</body>
+</html>

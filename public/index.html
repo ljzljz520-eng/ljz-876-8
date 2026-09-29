@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>消防安全演练考试台 · 员工端</title>
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<header class="topbar">
+  <h1><span class="flame">🧯</span> 消防安全演练考试台</h1>
+  <nav>
+    <a href="/" class="active">员工学习测验</a>
+    <a href="/checkin.html">现场签到</a>
+    <a href="/admin.html">管理看板</a>
+  </nav>
+</header>
+
+<div class="wrap">
+
+  <!-- 登录 -->
+  <section class="card login-box" id="loginCard">
+    <h2>👷 员工登录</h2>
+    <p class="muted" style="margin-bottom:14px">输入工号进入学习与测验（演示工号 E1001 ~ E1016）</p>
+    <div class="row">
+      <input id="empNo" placeholder="请输入工号，如 E1001" style="flex:1" onkeydown="if(event.key==='Enter')login()">
+      <button onclick="login()">进入</button>
+    </div>
+  </section>
+
+  <!-- 主面板 -->
+  <div id="app" style="display:none">
+    <section class="card">
+      <div class="row" style="justify-content:space-between">
+        <div>
+          <h2 id="welcome" style="margin:0"></h2>
+          <div class="muted" id="orgInfo"></div>
+        </div>
+        <button class="ghost sm" onclick="logout()">退出</button>
+      </div>
+      <div class="steps" style="margin-top:18px">
+        <div class="step" id="step1"><span class="dot"></span>课程学习</div>
+        <div class="step" id="step2"><span class="dot"></span>线上测验</div>
+        <div class="step" id="step3"><span class="dot"></span>现场签到</div>
+        <div class="step" id="step4"><span class="dot"></span>演练完成</div>
+      </div>
+      <div id="retrainBanner" class="notice" style="display:none;margin-top:16px"></div>
+    </section>
+
+    <!-- 课程学习 -->
+    <section class="card">
+      <h2>📖 第①步 · 必修课（3门）</h2>
+      <div id="lessonsBox"></div>
+      <div class="row" style="justify-content:space-between;margin-top:6px">
+        <span class="muted" id="lessonHint"></span>
+        <button class="green" id="startQuizBtn" onclick="openQuiz()" disabled>第②步 开始线上测验 →</button>
+      </div>
+    </section>
+
+    <!-- 测验 -->
+    <section class="card" id="quizCard" style="display:none">
+      <h2>📝 第②步 · 线上测验（满分100，80分及格）</h2>
+      <p class="muted" style="margin-bottom:12px">共12题，全部为单选。提交后立即出分；<b>不满80分将自动进入复训名单</b>，可重新学习后补考。</p>
+      <div id="questionsBox"></div>
+      <div class="row" style="justify-content:flex-end">
+        <button onclick="submitQuiz()" id="submitQuizBtn">提交答卷</button>
+      </div>
+    </section>
+
+    <!-- 成绩 -->
+    <section class="card" id="resultCard" style="display:none">
+      <h2>🎯 测验结果</h2>
+      <div class="grid2">
+        <div class="center" style="padding:18px">
+          <div style="font-size:46px;font-weight:800" id="scoreNum"></div>
+          <div id="scoreTag"></div>
+          <div class="muted" style="margin-top:6px">已考次数：<span id="attemptsNum"></span></div>
+        </div>
+        <div style="padding:18px">
+          <div id="resultMsg" style="margin-bottom:12px"></div>
+          <div class="row">
+            <button class="ghost sm" onclick="renderApp()">返回课程</button>
+            <button class="sm" onclick="openQuiz()">重新学习后补考</button>
+          </div>
+        </div>
+      </div>
+      <details style="margin-top:8px">
+        <summary class="muted" style="cursor:pointer">查看答题详情</summary>
+        <div id="detailBox" style="margin-top:12px"></div>
+      </details>
+    </section>
+
+    <!-- 签到引导 -->
+    <section class="card">
+      <h2>🏢 第③步 · 线下演练签到</h2>
+      <div id="checkinGuide"></div>
+    </section>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+<script src="/app.js"></script>
+</body>
+</html>

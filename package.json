@@ -1,0 +1,13 @@
+{
+  "name": "fire-safety-exam",
+  "version": "1.0.0",
+  "description": "消防安全演练考试台：课程学习、线上测验、线下签到、复训名单与管理看板",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.10.0",
+    "express": "^5.2.1"
+  }
+}
